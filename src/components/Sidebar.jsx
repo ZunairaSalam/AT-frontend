@@ -4,6 +4,11 @@ import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
 
 import {
+	Link,
+	Routes,
+	Route,
+} from 'react-router-dom';
+import {
 	ExclamationCircleOutlined,
 	CheckCircleOutlined,
 	AimOutlined,
@@ -15,22 +20,24 @@ import {
 } from '@ant-design/icons';
 import './Home.css';
 import ActiveSensors from './activeSensors';
-import InactiveSensors from './inactiveSensors';
-import RemoveSensors from './removeSensor';
-import AssignSensors from './assignSensors';
+// import InactiveSensors from './inactiveSensors';
+// import RemoveSensors from './removeSensor';
+// import AssignSensors from './assignSensors';
 import AddSensors from './addSensor';
-import TrackAssets from './trackAssets';
-import ShowMap from './showMap';
+// import TrackAssets from './trackAssets';
+// import ShowMap from './showMap';
 import Dashboard from './dashboard';
 
 const {
-	Content, Footer, Sider,
+	Header, Content, Footer, Sider,
 } = Layout;
+//	Content, Footer
+
 const { SubMenu } = Menu;
 
 function Sidebar() {
 	const [collapsed, setCollapsed] = useState(false);
-	const [visibleComp, setvisibleComp] = useState('1');
+	//	const [visibleComp, setvisibleComp] = useState('1');
 
 	const onCollapseHandler = (collapsedInput) => {
 		console.log(collapsedInput);
@@ -39,7 +46,7 @@ function Sidebar() {
 
 	const onClickHandler = (e) => {
 		console.log(e.key);
-		setvisibleComp(e.key);
+		// setvisibleComp(e.key);
 	};
 
 	return (
@@ -64,9 +71,12 @@ function Sidebar() {
           </Menu.Item>
 
         </SubMenu>
-        <Menu.Item key="5" icon={<BarChartOutlined />} onClick={onClickHandler}>
-          Show Sensor Data
-        </Menu.Item>
+        <Link to="/showSensors">
+          <Menu.Item key="5" icon={<BarChartOutlined />} onClick={onClickHandler}>
+            Show Sensor Data
+          </Menu.Item>
+
+        </Link>
         <Menu.Item key="6" icon={<MonitorOutlined />} onClick={onClickHandler}>
           Track Assets
         </Menu.Item>
@@ -76,7 +86,22 @@ function Sidebar() {
       </Menu>
     </Sider>
     <Layout className="site-layout">
-      {/* <Header className="site-layout-background" style={{ padding: 0 }} /> */}
+      <Header className="site-layout-background" style={{ padding: 0 }} />
+      <Content style={{ margin: '0 16px' }}>
+        <Routes>
+          <Route
+            path="/"
+            element={<Dashboard />}
+          />
+          <Route path="/showSensors" element={<AddSensors />} />
+          <Route path="/activeSensors" element={<ActiveSensors />} />
+          {/* <Route path="/view/edit/:id" element={<EditBle />} />
+      <Route path="/canvas" element={<Canvas />} /> */}
+        </Routes>
+      </Content>
+      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+    </Layout>
+    {/* <Layout className="site-layout">
       <Content style={{ margin: '0 16px' }}>
 
         {visibleComp === '1' ? <ActiveSensors />
@@ -89,7 +114,7 @@ function Sidebar() {
         							: visibleComp === 'sub1' ? <Dashboard /> : <div />}
       </Content>
       <Footer style={{ textAlign: 'center' }} />
-    </Layout>
+    </Layout> */}
   </Layout>
 	);
 }
