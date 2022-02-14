@@ -20,7 +20,7 @@ module.exports = {
 	rules: {
 		'linebreak-style': 0,
 		'no-tabs': 0,
-		'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
+		'no-mixed-spaces-and-tabs': 0,
 		// this option sets a specific tab width for your code
 		// https://eslint.org/docs/rules/indent
 		indent: [2, 'tab', {

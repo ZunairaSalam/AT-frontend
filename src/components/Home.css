@@ -7,4 +7,32 @@
   .site-layout .site-layout-background {
     background: #fff;
   }
-  
+  .activeClass {
+    /* background-color: rgb(0, 0, 0); */
+    /* color: rgb(2, 224, 32); */
+    font-weight:bolder;
+    font-size:2ex;
+    /* opacity: .5; */
+}
+
+.headerClass {
+  /* background-color: rgb(0, 0, 0); */
+  /* color: rgb(255, 255, 255); */
+  font-weight:bolder;
+  font-size:3ex;
+  /* opacity: .5; */
+}
+.assignClass {
+  /* background-color: rgb(0, 0, 0); */
+  color: rgb(218, 162, 11);
+  font-weight:bolder;
+  font-size:3ex;
+  /* opacity: .5; */
+}
+.removeClass {
+  /* background-color: rgb(0, 0, 0); */
+  color: rgb(5, 93, 255);
+  font-weight:bolder;
+  font-size:0.8em;
+  /* opacity: .5; */
+}
