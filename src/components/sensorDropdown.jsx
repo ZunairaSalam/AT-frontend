@@ -4,15 +4,26 @@ import {
 	Menu,
 } from 'antd';
 
-// eslint-disable-next-line react/prop-types
-function SensorDropdown({ uid, sname, func }) {
+function SensorDropdown({
+	// eslint-disable-next-line react/prop-types
+	uid, sname, asset, func,
+}) {
 	const onClickHandler = (id) => {
 		console.log(id);
 		func(id);
 	};
+	let myColor = 'green';
+	let status = 'Active';
+	const checkAsset = () => {
+		if (!asset) {
+			myColor = 'red';
+			status = 'InActive';
+		}
+	};
 
 	return (
   <span>
+    {checkAsset()}
     <Menu.Item key={uid}>
       <div
         onClick={(e) => {
@@ -22,11 +33,15 @@ function SensorDropdown({ uid, sname, func }) {
         role="button"
         tabIndex="0"
       >
-        id:
-        {uid}
-        {' '}
-        name:
+        <span>
+          id:
+          {uid}
+
+        </span>
+        {', '}
         {sname}
+        {', '}
+        <span style={{ color: myColor }}>{status}</span>
       </div>
     </Menu.Item>
     <Menu.Divider />

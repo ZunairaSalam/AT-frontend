@@ -28,6 +28,7 @@ import ViewSensor from './viewSensor';
 import TrackAssets from './trackAssets';
 import ShowMap from './showMap';
 import Dashboard from './dashboard';
+import LoginForm from './loginForm';
 
 const {
 	Content, Sider,
@@ -38,6 +39,8 @@ const { SubMenu } = Menu;
 
 function Home() {
 	const [collapsed, setCollapsed] = useState(false);
+	const [isLoggedin, setIsLoggedin] = useState(false);
+	console.log(isLoggedin);
 	//	const [visibleComp, setvisibleComp] = useState('1');
 	const navigate = useNavigate();
 	const onCollapseHandler = (collapsedInput) => {
@@ -51,7 +54,8 @@ function Home() {
 	};
 
 	return (
-
+		isLoggedin
+			? (
   <Layout style={{ minHeight: '100vh' }}>
     <Sider collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
       <div className="logo" />
@@ -115,21 +119,8 @@ function Home() {
         </Routes>
       </Content>
     </Layout>
-    {/* <Layout className="site-layout">
-      <Content style={{ margin: '0 16px' }}>
-
-        {visibleComp === '1' ? <ActiveSensors />
-        	: visibleComp === '2' ? <InactiveSensors />
-          		: visibleComp === '3' ? <AssignSensors />
-          			: visibleComp === '4' ? <RemoveSensors />
-          				: visibleComp === '5' ? <AddSensors />
-          					: visibleComp === '6' ? <TrackAssets />
-          						: visibleComp === '7' ? <ShowMap />
-        							: visibleComp === 'sub1' ? <Dashboard /> : <div />}
-      </Content>
-      <Footer style={{ textAlign: 'center' }} />
-    </Layout> */}
   </Layout>
+			) : <LoginForm setLoginFunc={setIsLoggedin} />
 	);
 }
 export default Home;

@@ -1,40 +1,78 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
+import moment from 'moment';
 
+export const getToken = () => localStorage.getItem('access_token');
 export const columns = [
 	{
-		title: 'Uid',
-		dataIndex: 'uid',
+		title: 'Sr.No',
 		key: 'uid',
-		// eslint-disable-next-line react/react-in-jsx-scope
-		render: (text) => <a href={text}>{text}</a>,
+		render: (text, object, index) => index + 1,
 	},
 	{
-		title: 'Name',
-		dataIndex: 'name',
-		key: 'name',
+		title: 'Angle Pitch',
+		dataIndex: 'anglePitch',
+		key: 'anglePitch',
 	},
 	{
-		title: 'Assets',
-		dataIndex: 'assets',
-		key: 'assets',
+		title: 'Angle Roll',
+		dataIndex: 'angleRoll',
+		key: 'angleRoll',
 	},
-	// {
-	// 	title: 'Angle Roll',
-	// 	dataIndex: 'angleRoll',
-	// 	key: 'angleRoll',
-	// },
-	// {
-	// 	title: 'Movement Count',
-	// 	dataIndex: 'movementCount',
-	// 	key: 'movementCount',
-	// },
-	// {
-	// 	title: 'Battery Voltage',
-	// 	dataIndex: 'batteryVoltage',
-	// 	key: 'batteryVoltage',
-	// },
+	{
+		title: 'Movement Count',
+		dataIndex: 'movementCount',
+		key: 'movementCount',
+	},
+	{
+		title: 'Battery Voltage',
+		dataIndex: 'batteryVoltage',
+		key: 'batteryVoltage',
+	},
+	{
+		title: 'Time Stamp',
+		dataIndex: 'timestamp',
+		key: 'timestamp',
+		defaultSortOrder: 'descend',
+    	sorter: (a, b) => moment(a.timestamp).unix() - moment(b.timestamp).unix(),
+		// render: (text) => text.format('MMMM Do YYYY, h:mm:ss a'),
+	},
 ];
 export const apiUrl = 'https://at-backend1.herokuapp.com/';
 // https://at-backend1.herokuapp.com/sensor/get/Data/36
+
+export const timeOptionsArray = [{
+	key: '5',
+	timeOptionString: '15 mins',
+},
+{
+	key: '30',
+	timeOptionString: '30 mins',
+},
+{
+	key: '60',
+	timeOptionString: '1 hour',
+},
+{
+	key: '300',
+	timeOptionString: '5 hours',
+}];
+
+export const assetColumns = [
+	{
+		title: 'Asset id',
+		dataIndex: 'id',
+		key: 'assetId',
+	},
+	{
+		title: 'Type',
+		dataIndex: 'type',
+		key: 'assetType',
+	},
+	{
+		title: 'Location',
+		dataIndex: 'location',
+		key: 'assetLocation',
+	},
+];

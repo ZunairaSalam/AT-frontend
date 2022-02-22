@@ -1,22 +1,38 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import {
 	Menu,
 } from 'antd';
-
-function TimeDropdown() {
-	const onClickHandler = (e) => {
-		e.preventDefault();
+import moment from 'moment';
+import { timeOptionsArray } from '../utils/constants';
+// .format('YYYY-MM-DD[T]HH:mm:ss[Z]')
+const now = moment();
+// eslint-disable-next-line react/prop-types
+function TimeDropdown({ func, showFunc }) {
+	const onClickHandler = (k) => {
+		const date = now.subtract(k, 'minutes');
+		func(date);
 	};
 	return (
   <Menu>
-    <Menu.Item key="0">
-      <a href="https://www.antgroup.com" onClick={(e) => onClickHandler(e)}>Last 15 mins</a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a href="https://www.aliyun.com">Last 30 mins</a>
-    </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="3">1 hour</Menu.Item>
+    {timeOptionsArray.map((elm) => (
+      <Menu.Item
+        key={elm.key}
+
+      >
+        <div onClick={(e) => {
+      	e.preventDefault();
+        	showFunc(elm.timeOptionString);
+      	onClickHandler(elm.key);
+        }}
+        >
+          {elm.timeOptionString}
+
+        </div>
+
+      </Menu.Item>
+    	))}
   </Menu>
 	);
 }

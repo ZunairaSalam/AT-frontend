@@ -2,150 +2,122 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-
 import {
-	Menu, Dropdown, Layout, Row, Col, DatePicker, TimePicker, Select, Space,
+	Menu, Dropdown, Layout, Row, Col, DatePicker, Button,
 } from 'antd';
+import moment from 'moment';
 import { DownOutlined } from '@ant-design/icons';
 import { getSensors, getSensorById } from '../utils/api';
 import SensorDropdown from './sensorDropdown';
 import SingleSensor from './singleSensor';
+import TimeDropdown from './timeDropdown';
 
 const { Header, Content } = Layout;
-const { Option } = Select;
-
-// eslint-disable-next-line react/prop-types
-function PickerWithType({ type, onChange }) {
-	if (type === 'time') return <TimePicker onChange={onChange} />;
-	if (type === 'date') return <DatePicker onChange={onChange} />;
-	return <DatePicker picker={type} onChange={onChange} />;
-}
-
 function ViewSensor() {
-	const [data, setData] = useState();
-	const [sensorIdData, setSensorIdData] = useState();
-	const [type, setType] = useState('time');
-	// const [showSensorInfo, setShowSensorInfo] = useState(false);
-
+	const [allSensorsList, setAllSensorsList] = useState();
+	const [selectedSensorIdData, setSelectedSensorIdData] = useState();
+	const [selectedSensorId, setSelectedSensorId] = useState();
+	const [selectedTime, setSelectedTime] = useState(moment().format('YYYY-MM-DD[T]HH:mm:ss[Z]'));
+	const [showTimeOption, setShowTimeOption] = useState();
+	// get all available sensors info
 	useEffect(() => {
 		getSensors().then((res) => {
 			if (!res && res === undefined) return;
-			setData(res);
+			setAllSensorsList(res);
+			console.log(res);
 		});
 	}, []);
 
-	const pullData = (sensorId) => {
-		getSensorById().then((res) => {
+	// get details of selected sensor and time
+	const getDetailsBySensorIdTime = (id, time) => {
+		console.log(time);
+		getSensorById(id, time).then((res) => {
 			if (!res && res === undefined) return;
-			setSensorIdData(res);
-			console.log(res);
+			setSelectedSensorIdData(res);
 		});
-		console.log('id in parent:', sensorId);
+		console.log('id in parent:', id);
 	};
-	// useInterval(() => {
-	// 	getSensors().then((res) => {
-	// 		if (!res) return;
-	// 		setData(res);
-	// 	});
-	//   }, 1000 * 10);
-	// const onClickHandler = (e) => {
-	// 	//	navigate(e.key);
-	// 	// setSensorId(e.key);
-	// 	console.log(e);
-	// 	setShowSensorInfo(true);
-	// 	console.log(showSensorInfo);
-	// };
+
+	// eslint-disable-next-line no-unused-vars
+	const handleTimeSelect = (value) => {
+		// use .format() of moment.js to get desired format
+		console.log('Selected Time: ', value.format('YYYY-MM-DD[T]HH:mm:ss[Z]'));
+		setSelectedTime(value.format('YYYY-MM-DD[T]HH:mm:ss[Z]'));
+	};
+
+	const handleSensorSelect = (id) => {
+		setSelectedSensorId(id);
+		// getDetailsBySensorIdTime(id, selectedTime);
+		console.log('handleSensorSelect: ', id);
+	};
 	const menu = (
   <Menu>
-    {data?.map((elm) => {
-    	// {`/viewSensor/${elm.uid}`}
-    	console.log(elm);
-    	return (
+    {allSensorsList?.map((elm) => (
       <SensorDropdown
         key={elm.uid}
         uid={elm.uid}
         sname={elm.name}
-        func={pullData}
-        path="/dashboard"
+        asset={elm.asset}
+        func={handleSensorSelect}
       />
-    	);
-    })}
+    	))}
   </Menu>
 	);
 
-	// const timeOptions = (
-	// <Menu>
-	//   <Menu.Item key="0">
-	//     <a href="https://www.antgroup.com">Last 15 mins</a>
-	//   </Menu.Item>
-	//   <Menu.Item key="1">
-	//     <a href="https://www.aliyun.com">Last 30 mins</a>
-	//   </Menu.Item>
-	//   <Menu.Divider />
-	//   <Menu.Item key="3">1 hour</Menu.Item>
-	// </Menu>
-	// );
+	const myTimeOptions = (
+  <TimeDropdown func={handleTimeSelect} showFunc={setShowTimeOption} />
+	);
 
 	return (
   <div>
     <Header className="site-layout-background" style={{ padding: 0 }}>
-      <h1>All Sensor Data</h1>
+      <h1>Select Sensor to View Data</h1>
     </Header>
-    {/* <Table columns={columns} dataSource={data} /> */}
+    {/* <Table columns={columns} dataSource={allSensorsList} /> */}
     <Content style={{ margin: '10px 16px' }}>
       <Row>
-        <Col span={12}>
+        <span>Sensor:</span>
+        <Col span={6}>
           <Dropdown
             overlay={menu}
-        // <Menu>
-        //   {data?.map((elm) => {
-        //     	// {`/viewSensor/${elm.uid}`}
-        //     	console.log(elm);
-        //     	return (
-        //       <SensorDropdown
-        //         key={elm.uid}
-        //         uid={elm.uid}
-        //         sname={elm.name}
-        //         path="/dashboard"
-        //       />
-        //     	);
-        //   })}
-        // </Menu>
-        // )}
             trigger={['click']}
           >
             <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-              Select Sensor
+              {selectedSensorId || 'Select Sensor'}
               <DownOutlined />
             </a>
           </Dropdown>
         </Col>
-        <Col span={12}>
-          {/* <Dropdown overlay={timeOptions} trigger={['click']}>
+        <Col span={4}>
+          {' '}
+          <span>TimeStamp:</span>
+        </Col>
+        <Col span={6}>
+          <DatePicker
+            showTime
+            onChange={(value) => handleTimeSelect(value)}
+            // onOk={getDetailsBySensorIdTime(selectedSensorId, selectedTime)}
+            onOk={(value) => { setShowTimeOption('Select Time'); handleTimeSelect(value); }}
+          />
+        </Col>
+        <Col span={4}>
+
+          <Dropdown overlay={myTimeOptions} trigger={['click']}>
             <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-              Time
-              {' '}
+              {showTimeOption || 'Select Time'}
               <DownOutlined />
             </a>
-          </Dropdown> */}
-          <Space>
-            <Select value={type} onChange={setType}>
-              <Option value="time">Time</Option>
-              <Option value="date">Date</Option>
-              <Option value="week">Week</Option>
-              <Option value="month">Month</Option>
-              <Option value="quarter">Quarter</Option>
-              <Option value="year">Year</Option>
-            </Select>
-            <PickerWithType type={type} onChange={(value) => console.log(value)} />
-          </Space>
+          </Dropdown>
+          {/* <DatePicker showTime onChange={onChange} /> */}
+
+        </Col>
+        <Col span={2}>
+          <Button type="primary" onClick={() => getDetailsBySensorIdTime(selectedSensorId, selectedTime)}>Submit</Button>
         </Col>
       </Row>
     </Content>
-    ,
-    {/* {showSensorInfo && <SingleSensor data={data} />} */}
-    {sensorIdData && <SingleSensor data={sensorIdData} />}
+    {/* {showSensorInfo && <SingleSensor allSensorsList={allSensorsList} />} */}
+    {selectedSensorIdData && <SingleSensor data={selectedSensorIdData} />}
   </div>
 	);
 }
