@@ -31,7 +31,7 @@ import Dashboard from './dashboard';
 import LoginForm from './loginForm';
 
 const {
-	Content, Sider,
+	Header, Content, Sider,
 } = Layout;
 //	Content, Footer
 
@@ -52,75 +52,90 @@ function Home() {
 		navigate(e.key);
 		// setvisibleComp(e.key);
 	};
-
 	return (
-		isLoggedin
-			? (
-  <Layout style={{ minHeight: '100vh' }}>
-    <Sider collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
+  <Layout>
+    <Header theme="dark" className="header">
       <div className="logo" />
-      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-
-        <Menu.Item key="/dashboard" icon={<ControlOutlined />} onClick={onClickHandler}>
-          Dashboard
-        </Menu.Item>
-
-        <Menu.Item key="/viewSensors" icon={<BarChartOutlined />} onClick={onClickHandler}>
-          View Sensor Data
-        </Menu.Item>
-
-        <SubMenu key="/sub1" icon={<AlertOutlined />} title="Sensors" onClick={onClickHandler}>
-
-          <Menu.Item key="/activeSensors" icon={<CheckCircleOutlined />} onClick={onClickHandler}>
-            Active Sensors
-          </Menu.Item>
-
-          <Menu.Item key="/inactiveSensors" icon={<ExclamationCircleOutlined />} onClick={onClickHandler}>
-            InActive Sensors
-          </Menu.Item>
-
-          <Menu.Item key="/attachSensors" icon={<AimOutlined />} onClick={onClickHandler}>
-            Attach Sensors
-          </Menu.Item>
-
-          <Menu.Item key="/detachSensors" icon={<MinusOutlined />} onClick={onClickHandler}>
-            Detach Sensors
-          </Menu.Item>
-
-        </SubMenu>
-
-        <Menu.Item key="/trackAssets" icon={<MonitorOutlined />} onClick={onClickHandler}>
-          Track Assets
-        </Menu.Item>
-
-        <Menu.Item key="/showmap" icon={<EnvironmentOutlined />} onClick={onClickHandler}>
-          Map
-        </Menu.Item>
-
+      <h1 style={{ color: 'white' }}>SSET TRACKING</h1>
+      <Menu theme="dark" mode="horizontal">
+        <Menu.Item key="001" style={{ marginLeft: 'auto' }}>Login</Menu.Item>
       </Menu>
-    </Sider>
-    <Layout className="site-layout">
-      <Content style={{ margin: '0 16px' }}>
-        <Routes>
-          <Route
-            path="/"
-            element={<Dashboard />}
-          />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/viewSensors" element={<ViewSensor />} />
-          <Route path="/activeSensors" element={<ActiveSensors />} />
-          <Route path="/inactiveSensors" element={<InactiveSensors />} />
-          <Route path="/attachSensors" element={<AssignSensors />} />
-          <Route path="/detachSensors" element={<RemoveSensors />} />
-          <Route path="/trackAssets" element={<TrackAssets />} />
-          <Route path="/showMap" element={<ShowMap />} />
-          {/* <Route path="/view/edit/:id" element={<EditBle />} />
+    </Header>
+    {isLoggedin
+    	? (
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+
+            <Menu.Item key="/dashboard" icon={<ControlOutlined />} onClick={onClickHandler}>
+              Dashboard
+            </Menu.Item>
+
+            <Menu.Item key="/viewSensors" icon={<BarChartOutlined />} onClick={onClickHandler}>
+              View Sensor Data
+            </Menu.Item>
+
+            <SubMenu key="/sub1" icon={<AlertOutlined />} title="Sensors" onClick={onClickHandler}>
+
+              <Menu.Item key="/activeSensors" icon={<CheckCircleOutlined />} onClick={onClickHandler}>
+                Active Sensors
+              </Menu.Item>
+
+              <Menu.Item key="/inactiveSensors" icon={<ExclamationCircleOutlined />} onClick={onClickHandler}>
+                InActive Sensors
+              </Menu.Item>
+
+              <Menu.Item key="/attachSensors" icon={<AimOutlined />} onClick={onClickHandler}>
+                Attach Sensors
+              </Menu.Item>
+
+              <Menu.Item key="/detachSensors" icon={<MinusOutlined />} onClick={onClickHandler}>
+                Detach Sensors
+              </Menu.Item>
+
+            </SubMenu>
+
+            <Menu.Item key="/trackAssets" icon={<MonitorOutlined />} onClick={onClickHandler}>
+              Track Assets
+            </Menu.Item>
+
+            <Menu.Item key="/showmap" icon={<EnvironmentOutlined />} onClick={onClickHandler}>
+              Map
+            </Menu.Item>
+
+          </Menu>
+        </Sider>
+        <Layout className="site-layout">
+          <Content
+            className="site-layout-background"
+            style={{
+            	margin: '24px 16px',
+            	padding: 24,
+            	minHeight: 280,
+            }}
+          >
+            <Routes>
+              <Route
+                path="/"
+                element={<Dashboard />}
+              />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/viewSensors" element={<ViewSensor />} />
+              <Route path="/activeSensors" element={<ActiveSensors />} />
+              <Route path="/inactiveSensors" element={<InactiveSensors />} />
+              <Route path="/attachSensors" element={<AssignSensors />} />
+              <Route path="/detachSensors" element={<RemoveSensors />} />
+              <Route path="/trackAssets" element={<TrackAssets />} />
+              <Route path="/showMap" element={<ShowMap />} />
+              {/* <Route path="/view/edit/:id" element={<EditBle />} />
       <Route path="/canvas" element={<Canvas />} /> */}
-        </Routes>
-      </Content>
-    </Layout>
+            </Routes>
+          </Content>
+        </Layout>
+      </Layout>
+    	)
+    	: <LoginForm setLoginFunc={setIsLoggedin} />}
   </Layout>
-			) : <LoginForm setLoginFunc={setIsLoggedin} />
 	);
 }
 export default Home;
