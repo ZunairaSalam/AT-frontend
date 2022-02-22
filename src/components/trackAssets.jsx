@@ -1,7 +1,13 @@
 import React from 'react';
+import AssetTable from './assetTable';
 
 function TrackAssets() {
-	return <h1>Track your Assets</h1>;
+	return (
+  <span>
+    <h1>Track your Assets</h1>
+    <AssetTable />
+  </span>
+	);
 }
 
 export default TrackAssets;

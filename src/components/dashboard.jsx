@@ -7,18 +7,13 @@ import { getSensors } from '../utils/api';
 // eslint-disable-next-line react/prop-types
 function Dashboard() {
 	const [activeCount, setActiveCount] = useState(0);
-	// eslint-disable-next-line no-unused-vars
 	const [inactiveCount, setInactiveCount] = useState(0);
 	// eslint-disable-next-line no-unused-vars
 	const [data, setData] = useState();
-	// const authenticated = sessionStorage.getItem('auth_token');
-
 	useEffect(() => {
 		getSensors().then((res) => {
 			if (!res) return;
 			setData(res);
-			// eslint-disable-next-line no-debugger
-			debugger;
 			const activeSensors = res?.filter((value) => value.asset !== null);
 			const inactiveSensorsLength = res.length - activeSensors.length;
 			setActiveCount(activeSensors.length);
