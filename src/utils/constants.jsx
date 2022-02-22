@@ -8,7 +8,7 @@ export const columns = [
 	{
 		title: 'Sr.No',
 		key: 'uid',
-		render: (text, object, index) => index + 1,
+		render: (index) => index + 1,
 	},
 	{
 		title: 'Angle Pitch',
@@ -74,5 +74,50 @@ export const assetColumns = [
 		title: 'Location',
 		dataIndex: 'location',
 		key: 'assetLocation',
+	},
+	{
+		title: 'Sensor Id',
+		render: (record) => (record.sensor ? record.sensor.uid : 'Not attached'),
+		key: 'suid',
+	},
+];
+
+export const activeColumns = [
+	{
+		title: 'Sensor Id',
+		key: 'uid',
+		dataIndex: 'uid',
+	},
+	{
+		title: ' Sensor Name',
+		key: 'name',
+		dataIndex: 'name',
+	},
+	{
+		title: 'Asset id',
+		render: (record) => (record.asset.id),
+		key: 'assetId',
+	},
+	{
+		title: 'Asset Type',
+		render: (record) => (record.asset.type),
+		key: 'type',
+	},
+	{
+		title: 'Asset Location',
+		render: (record) => (record.asset.location),
+		key: 'location',
+	},
+];
+export const inActiveColumns = [
+	{
+		title: 'Sensor Id',
+		key: 'uid',
+		dataIndex: 'uid',
+	},
+	{
+		title: ' Sensor Name',
+		key: 'name',
+		dataIndex: 'name',
 	},
 ];

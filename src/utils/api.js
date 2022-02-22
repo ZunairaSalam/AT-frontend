@@ -23,6 +23,14 @@ export function getSensorById(id, time) {
 		});
 }
 
+export function getAssets() {
+	return axios.get(`${apiUrl}asset/all`)
+		.then((res) => res.data)
+		.catch((err) => {
+			// catch error
+			console.error(err);
+		});
+}
 export function sendLoginRequest(emailParam, passwordParam) {
 	return axios.post('https://at-backend1.herokuapp.com/auth/login', {
 		email: emailParam,

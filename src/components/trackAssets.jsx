@@ -4,7 +4,7 @@ import AssetTable from './assetTable';
 function TrackAssets() {
 	return (
   <span>
-    <h1>Track your Assets</h1>
+    <h1>View Assets</h1>
     <AssetTable />
   </span>
 	);
