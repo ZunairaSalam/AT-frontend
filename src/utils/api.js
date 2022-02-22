@@ -40,3 +40,12 @@ export function sendLoginRequest(emailParam, passwordParam) {
 		return res.data.access_token;
 	});
 }
+export function attachSensortoAsset(sensorId, assetIdParam) {
+	return axios.patch(`${apiUrl}sensor/attach/${sensorId}`, {
+		assetId: assetIdParam,
+	}).then((res) => res)
+		.catch((err) => {
+		// catch error
+			console.error(err);
+		});
+}

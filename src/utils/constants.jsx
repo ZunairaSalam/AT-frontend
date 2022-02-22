@@ -8,7 +8,7 @@ export const columns = [
 	{
 		title: 'Sr.No',
 		key: 'uid',
-		render: (index) => index + 1,
+		render: (text, object, index) => index + 1,
 	},
 	{
 		title: 'Angle Pitch',
