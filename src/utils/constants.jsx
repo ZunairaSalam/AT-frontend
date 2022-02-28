@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-loss-of-precision */
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
@@ -36,7 +38,7 @@ export const columns = [
 		key: 'timestamp',
 		defaultSortOrder: 'descend',
     	sorter: (a, b) => moment(a.timestamp).unix() - moment(b.timestamp).unix(),
-		// render: (text) => text.format('MMMM Do YYYY, h:mm:ss a'),
+		render: (text) => moment(text).format('MMM Do YY, h:mm:ss a'),
 	},
 ];
 export const apiUrl = 'https://at-backend1.herokuapp.com/';
@@ -119,5 +121,43 @@ export const inActiveColumns = [
 		title: ' Sensor Name',
 		key: 'name',
 		dataIndex: 'name',
+	},
+];
+
+export const locations = [
+	{
+		name: 'Container 1',
+		location: {
+			lat: 25.109895082618078,
+			lng: 62.342519825122355,
+		},
+	},
+	{
+		name: 'Container 2',
+		location: {
+			lat: 25.109792595317908,
+			lng: 62.342519824864265,
+		},
+	},
+	{
+		name: 'Container 3',
+		location: {
+			lat: 25.109236485439713,
+			lng: 62.342519825122355,
+		},
+	},
+	{
+		name: 'Container 4',
+		location: {
+			lat: 25.109236485439713,
+			lng: 62.342928716793265,
+		},
+	},
+	{
+		name: 'Container 5',
+		location: {
+			lat: 25.109987654335588,
+			lng: 62.346543225122355,
+		},
 	},
 ];

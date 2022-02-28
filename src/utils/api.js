@@ -43,7 +43,15 @@ export function sendLoginRequest(emailParam, passwordParam) {
 export function attachSensortoAsset(sensorId, assetIdParam) {
 	return axios.patch(`${apiUrl}sensor/attach/${sensorId}`, {
 		assetId: assetIdParam,
-	}).then((res) => res)
+	}).then((res) => res.status)
+		.catch((err) => {
+		// catch error
+			console.error(err);
+			return err.response.status;
+		});
+}
+export function deAttachSensortoAsset(sensorId) {
+	return axios.patch(`${apiUrl}sensor/deattach/${sensorId}`).then((res) => res.status)
 		.catch((err) => {
 		// catch error
 			console.error(err);
