@@ -1,10 +1,13 @@
 import React from 'react';
+import { Typography } from 'antd';
 import AssetTable from './assetTable';
+
+const { Title } = Typography;
 
 function TrackAssets() {
 	return (
   <span>
-    <h1>View Assets</h1>
+    <Title level={3}>View Assets</Title>
     <AssetTable />
   </span>
 	);

@@ -1,19 +1,21 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import {
-	Menu, Dropdown, Row, Col, Button,
+	Menu, Dropdown, Row, Col, Button, Alert, Typography,
 } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { getSensors, getAssets, attachSensortoAsset } from '../utils/api';
 
+const { Title } = Typography;
 function AssignSensors() {
 	const [sensorData, setSensorData] = useState();
 	const [selectedSensorId, setSelectedSensorId] = useState();
 	const [assetData, setAssetData] = useState();
 	const [selectedAssetId, setSelectedAssetId] = useState();
-
+	const [showAlert, setShowAlert] = useState(0);
 	useEffect(() => {
 		getSensors().then((res) => {
 			if (!res) return;
@@ -35,17 +37,18 @@ function AssignSensors() {
 	}, []);
 	const handleSensorSelect = (id) => {
 		setSelectedSensorId(id);
-		// getDetailsBySensorIdTime(id, selectedTime);
 		console.log('handleSensorSelect: ', id);
 	};
 	const handleAssetSelect = (id) => {
 		setSelectedAssetId(id);
-		// getDetailsBySensorIdTime(id, selectedTime);
 		console.log('handleAssetSelect: ', id);
 	};
 	const handleSubmit = () => {
 		console.log('submit');
-		attachSensortoAsset(selectedSensorId, selectedAssetId);
+		attachSensortoAsset(selectedSensorId, selectedAssetId).then((res) => {
+			if (res === 200) setShowAlert(1);
+			else if (res === 409) { console.log(res); setShowAlert(2); } else console.log(res);
+		});
 	};
 	const sensorList = (
   <Menu>
@@ -88,10 +91,36 @@ function AssignSensors() {
 		  ))}
   </Menu>
 		  );
+
+	const handleClose = () => {
+		setShowAlert(false);
+	};
+
+	const SuccessAlert = (
+  <Alert
+    message="Success"
+    description={`Sensor# ${selectedSensorId} attached to Asset# ${selectedAssetId}`}
+    type="success"
+    closable
+    afterClose={handleClose}
+    showIcon
+  />
+	);
+
+	const FailedAlert = (
+  <Alert
+    message="Error"
+    description={`Sensor# ${selectedSensorId} already attached`}
+    type="error"
+    closable
+    afterClose={handleClose}
+    showIcon
+  />
+	);
 	return (
   <div>
 
-    <h1>Attach Sensors to assets</h1>
+    <Title level={3}>Attach Sensors to assets</Title>
     <Row>
       <span>Sensor:</span>
       <Col span={6}>
@@ -121,6 +150,13 @@ function AssignSensors() {
         <Button type="primary" disabled={!((selectedSensorId && selectedAssetId))} onClick={() => handleSubmit()}>Submit</Button>
       </Col>
     </Row>
+    <Row>
+      {' '}
+      {showAlert === 1
+      	? (SuccessAlert) : showAlert === 2 ? FailedAlert : null}
+
+    </Row>
+
   </div>
 	);
 }

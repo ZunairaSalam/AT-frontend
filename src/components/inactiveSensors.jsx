@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
-	Table, Layout,
+	Table, Layout, Typography,
 } from 'antd';
 import { getSensors } from '../utils/api';
 import { inActiveColumns } from '../utils/constants';
 
+const { Title } = Typography;
 const {
 	Header,
 } = Layout;
@@ -24,7 +25,7 @@ function InactiveSensors() {
 	return (
   <div>
     <Header className="site-layout-background" style={{ padding: 0 }}>
-      <h1>Currently InActive Sensors</h1>
+      <Title level={3}>Currently InActive Sensors</Title>
     </Header>
     <Table columns={inActiveColumns} dataSource={data} />
   </div>

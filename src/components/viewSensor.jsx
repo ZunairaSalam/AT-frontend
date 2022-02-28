@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import {
-	Menu, Dropdown, Layout, Row, Col, DatePicker, Button,
+	Menu, Dropdown, Layout, Row, Col, DatePicker, Button, Typography,
 } from 'antd';
 import moment from 'moment';
 import { DownOutlined } from '@ant-design/icons';
@@ -19,6 +19,7 @@ function ViewSensor() {
 	const [selectedSensorId, setSelectedSensorId] = useState();
 	const [selectedTime, setSelectedTime] = useState(moment().format('YYYY-MM-DD[T]HH:mm:ss[Z]'));
 	const [showTimeOption, setShowTimeOption] = useState();
+	const { Title } = Typography;
 	// get all available sensors info
 	useEffect(() => {
 		getSensors().then((res) => {
@@ -71,7 +72,7 @@ function ViewSensor() {
 	return (
   <div>
     <Header className="site-layout-background" style={{ padding: 0 }}>
-      <h1>Select Sensor to View Data</h1>
+      <Title level={3}>Select Sensor to View Data</Title>
     </Header>
     {/* <Table columns={columns} dataSource={allSensorsList} /> */}
     <Content style={{ margin: '10px 16px' }}>

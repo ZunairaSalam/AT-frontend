@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-	Table, Layout,
+	Table, Layout, Typography,
 } from 'antd';
 import { getSensors } from '../utils/api';
 import { activeColumns } from '../utils/constants';
@@ -8,7 +8,7 @@ import { activeColumns } from '../utils/constants';
 const {
 	Header,
 } = Layout;
-
+const { Title } = Typography;
 //   render: tags => (
 // 	<>
 // 	  {tags.map(tag => {
@@ -33,6 +33,7 @@ const {
 //   ),
 
 function ActiveSensors() {
+	// this chunk is used in multiple components !!!!reuse
 	const [data, setData] = useState();
 	useEffect(() => {
 		getSensors().then((res) => {
@@ -47,7 +48,7 @@ function ActiveSensors() {
 	return (
   <div>
     <Header className="site-layout-background" style={{ padding: 0 }}>
-      <h1>Currently Active Sensors</h1>
+      <Title level={3}>Currently Active Sensors</Title>
     </Header>
     <Table columns={activeColumns} dataSource={data} />
   </div>

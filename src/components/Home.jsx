@@ -31,7 +31,7 @@ import Dashboard from './dashboard';
 import LoginForm from './loginForm';
 
 const {
-	Header, Content, Sider,
+	Header, Content, Sider, Footer,
 } = Layout;
 //	Content, Footer
 
@@ -64,8 +64,8 @@ function Home() {
     {isLoggedin
     	? (
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+        <Sider className="site-layout-background" collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
+          <Menu defaultSelectedKeys={['1']} mode="inline">
 
             <Menu.Item key="/dashboard" icon={<ControlOutlined />} onClick={onClickHandler}>
               Dashboard
@@ -131,6 +131,7 @@ function Home() {
       <Route path="/canvas" element={<Canvas />} /> */}
             </Routes>
           </Content>
+          <Footer theme="dark">Asset Tracking Project</Footer>
         </Layout>
       </Layout>
     	)
