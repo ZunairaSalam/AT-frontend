@@ -1,3 +1,5 @@
+
+  
   .site-layout .site-layout-background {
     background: #fff;
   }
@@ -36,7 +38,7 @@
   height: 41px;
   background-repeat: no-repeat;
   margin: 16px -68px 10px -40px;
-  background-image: url('../logo.svg');
+  /* background-image: url('../logo.svg'); */
 }
 
 .site-layout-background {

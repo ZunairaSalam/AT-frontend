@@ -29,6 +29,7 @@ import TrackAssets from './trackAssets';
 import ShowMap from './showMap';
 import Dashboard from './dashboard';
 import LoginForm from './loginForm';
+import logo from '../logo.svg';
 
 const {
 	Header, Content, Sider, Footer,
@@ -55,7 +56,8 @@ function Home() {
 	return (
   <Layout>
     <Header theme="dark" className="header">
-      <div className="logo" />
+      {/* <div className="logo" /> */}
+      <img src={logo} alt="A" className="logo" />
       <h1 style={{ color: 'white' }}>SSET TRACKING</h1>
       <Menu theme="dark" mode="horizontal">
         <Menu.Item key="001" style={{ marginLeft: 'auto' }}>Login</Menu.Item>
