@@ -36,7 +36,7 @@
   height: 41px;
   background-repeat: no-repeat;
   margin: 16px -68px 10px -40px;
-  background-image: url(https://cdn.worldvectorlogo.com/logos/google-ads-2.svg);
+  background-image: url('../logo.svg');
 }
 
 .site-layout-background {
