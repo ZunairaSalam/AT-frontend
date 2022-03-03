@@ -22,7 +22,7 @@ function LoginForm({ setLoginFunc }) {
 	return (
   <span>
     <Divider orientation="center">Welcome, Login</Divider>
-    <Row>
+    <Row offset={5}>
       <Col span={10} offset={7}>
         <Form
           name="normal_login"

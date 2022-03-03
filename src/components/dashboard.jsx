@@ -69,14 +69,14 @@ function Dashboard() {
         </Card>
 
       </Col>
-      <Col span={6}>
+      <Col span={6} className="activeClass">
         {' '}
         <Card
-          bodyStyle={{ backgroundColor: 'rgba(60, 179, 113, 0.4)', border: 0 }}
+          bodyStyle={{ backgroundColor: 'rgba(255, 0, 0, 0.4)', border: 0 }}
           onClick={() => navigate('/inactiveSensors')}
         >
           <Statistic
-            title="Active Sensors"
+            title="InActive Sensors"
             value={inactiveCount}
             valueStyle={{ color: '#cf1322' }}
             prefix={<StopOutlined />}

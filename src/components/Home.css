@@ -34,21 +34,39 @@
 }
 .logo {
   float: left;
-  width: 120px;
-  height: 41px;
+  width: 20%;
+  height: 70px;
   background-repeat: no-repeat;
-  margin: 16px -68px 10px -40px;
-  /* background-image: url('../logo.svg'); */
+  margin: 2px -150px 0px -30px;
+  background-image: url('../../public/systems.png');
 }
 
 .site-layout-background {
   background: #fff;
 }
 .header h1{
+  color: rgb(255, 255, 255); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
   float: left;
-  margin-top: 12px;
-  font-size: 18px;
+  font-size: 2em;
+  margin-left: 40%;
 }
-.header-menu{
-  
+.ant-layout-footer{
+  background: #002140;
+  padding: 0%;
+  color: rgb(255, 255, 255);
+  float: left;
+  height: 44px;
+}
+.footer{
+  /* background-image: url('../../public/systems.png');
+  background-repeat: no-repeat; */
+  width: 178px;
+  /* height: 30px; */
+  object-fit: contain;
+}
+.ant-layout-sider-trigger{
+  height: 40px;
 }

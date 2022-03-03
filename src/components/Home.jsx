@@ -29,13 +29,12 @@ import TrackAssets from './trackAssets';
 import ShowMap from './showMap';
 import Dashboard from './dashboard';
 import LoginForm from './loginForm';
-import logo from '../logo.svg';
 
 const {
 	Header, Content, Sider, Footer,
 } = Layout;
 //	Content, Footer
-
+// const { Title } = Typography;
 const { SubMenu } = Menu;
 
 function Home() {
@@ -57,15 +56,21 @@ function Home() {
   <Layout>
     <Header theme="dark" className="header">
       {/* <div className="logo" /> */}
-      <img src={logo} alt="A" className="logo" />
-      <h1 style={{ color: 'white' }}>SSET TRACKING</h1>
+      {/* <img src={logo} alt="A" className="logo" /> */}
+      {/* <h1 style={{ color: 'white' }}>SSET TRACKING PROJECT</h1> */}
+      <span className="logo" />
+      <h1>
+        ASSET TRACKING PROJECT
+      </h1>
+      {isLoggedin && (
       <Menu theme="dark" mode="horizontal">
-        <Menu.Item key="001" style={{ marginLeft: 'auto' }}>Login</Menu.Item>
+        <Menu.Item key="001" style={{ marginLeft: 'auto', backgroundColor: 'DodgerBlue' }} onClick={() => setIsLoggedin(!isLoggedin)}>{isLoggedin ? 'Logout' : 'Login'}</Menu.Item>
       </Menu>
+      )}
     </Header>
     {isLoggedin
-    	? (
-      <Layout style={{ minHeight: '100vh' }}>
+    	&& (
+      <Layout style={{ minHeight: '92vh' }}>
         <Sider className="site-layout-background" collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
           <Menu defaultSelectedKeys={['1']} mode="inline">
 
@@ -98,7 +103,7 @@ function Home() {
             </SubMenu>
 
             <Menu.Item key="/trackAssets" icon={<MonitorOutlined />} onClick={onClickHandler}>
-              Track Assets
+              View Assets Data
             </Menu.Item>
 
             <Menu.Item key="/showmap" icon={<EnvironmentOutlined />} onClick={onClickHandler}>
@@ -133,11 +138,14 @@ function Home() {
       <Route path="/canvas" element={<Canvas />} /> */}
             </Routes>
           </Content>
-          <Footer theme="dark">Asset Tracking Project</Footer>
+          <Footer theme="dark">
+            Systems Ltd
+            <div><a href="https://www.systemsltd.com/">About Us</a></div>
+          </Footer>
         </Layout>
       </Layout>
-    	)
-    	: <LoginForm setLoginFunc={setIsLoggedin} />}
+    	)}
+    	 {!isLoggedin && <LoginForm setLoginFunc={setIsLoggedin} />}
   </Layout>
 	);
 }

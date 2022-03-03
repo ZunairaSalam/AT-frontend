@@ -7,7 +7,9 @@ import {
 } from 'antd';
 import moment from 'moment';
 import { DownOutlined } from '@ant-design/icons';
-import { getSensors, getSensorById } from '../utils/api';
+import {
+	getSensors, getSensorById, simulateSensorDataById, StopSimulateSensorDataById,
+} from '../utils/api';
 import SensorDropdown from './sensorDropdown';
 import SingleSensor from './singleSensor';
 import TimeDropdown from './timeDropdown';
@@ -51,6 +53,13 @@ function ViewSensor() {
 		// getDetailsBySensorIdTime(id, selectedTime);
 		console.log('handleSensorSelect: ', id);
 	};
+	const handleSimulateSensorClick = (id) => {
+		simulateSensorDataById(id);
+	};
+
+	const handleStopSimulateSensorClick = (id) => {
+		StopSimulateSensorDataById(id);
+	};
 	const menu = (
   <Menu>
     {allSensorsList?.map((elm) => (
@@ -78,7 +87,7 @@ function ViewSensor() {
     <Content style={{ margin: '10px 16px' }}>
       <Row>
         <span>Sensor:</span>
-        <Col span={6}>
+        <Col span={2}>
           <Dropdown
             overlay={menu}
             trigger={['click']}
@@ -93,7 +102,7 @@ function ViewSensor() {
           {' '}
           <span>TimeStamp:</span>
         </Col>
-        <Col span={6}>
+        <Col span={4}>
           <DatePicker
             showTime
             onChange={(value) => handleTimeSelect(value)}
@@ -101,7 +110,7 @@ function ViewSensor() {
             onOk={(value) => { setShowTimeOption('Select Time'); handleTimeSelect(value); }}
           />
         </Col>
-        <Col span={4}>
+        <Col span={2}>
 
           <Dropdown overlay={myTimeOptions} trigger={['click']}>
             <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
@@ -113,7 +122,29 @@ function ViewSensor() {
 
         </Col>
         <Col span={2}>
-          <Button type="primary" onClick={() => getDetailsBySensorIdTime(selectedSensorId, selectedTime)}>Submit</Button>
+          <Button type="primary" disabled={!selectedSensorId} onClick={() => getDetailsBySensorIdTime(selectedSensorId, selectedTime)}>Get Sensor Data</Button>
+        </Col>
+        <Col span={2} offset={2}>
+          <Button
+            type="primary"
+            disabled={!selectedSensorId}
+            style={{ background: 'mediumSeaGreen', borderColor: 'mediumSeaGreen' }}
+            onClick={() => handleSimulateSensorClick(selectedSensorId)}
+          >
+            Simulate Sensor Data
+
+          </Button>
+        </Col>
+        <Col span={2} offset={2}>
+          <Button
+            type="primary"
+            disabled={!selectedSensorId}
+            style={{ background: 'tomato', borderColor: 'tomato' }}
+            onClick={() => handleStopSimulateSensorClick(selectedSensorId)}
+          >
+            Stop Simulation
+
+          </Button>
         </Col>
       </Row>
     </Content>
