@@ -1,35 +1,9 @@
-// import React from 'react';
-// import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-
-// const mapStyles = {
-// 	width: '100%',
-// 	height: '100%',
-// };
-
-// export function MapContainer(google) {
-// 	return (
-//   <Map
-//     google={google}
-//     zoom={14}
-//     style={mapStyles}
-//     initialCenter={{
-//     	lat: 40.854885,
-//     	lng: -88.081807,
-//     }}
-//   >
-//     <Marker position={{ lat: 48.00, lng: -122.00 }} />
-//   </Map>
-// 	);
-// }
-
-// export default GoogleApiWrapper({
-// 	apiKey: 'AIzaSyCcKPHB5s2SnGCyHyBZgML1Ka3aqwQIA20',
-// })(MapContainer);
-
 import React from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import { locations } from '../utils/constants';
 
+const { google } = window;
+const locationPin = 'https://cdn-icons-png.flaticon.com/512/1255/1255714.png';
 function MapContainer() {
 	const mapStyles = {
 		height: '100vh',
@@ -41,22 +15,31 @@ function MapContainer() {
 	};
 
 	return (
-  <LoadScript
-    googleMapsApiKey="AIzaSyCcKPHB5s2SnGCyHyBZgML1Ka3aqwQIA20"
-  >
-    <GoogleMap
-      mapContainerStyle={mapStyles}
-      zoom={15}
-      center={defaultCenter}
 
-    >
-      {
+  <GoogleMap
+    mapContainerStyle={mapStyles}
+    zoom={15}
+    center={defaultCenter}
+  >
+    {
       locations.map((item) => (
-        <Marker key={item.name} position={item.location} />
+      	google && (
+        <Marker
+          title={item.name}
+          key={item.name}
+          position={item.location}
+          icon={{
+          	url: locationPin,
+          	anchor: new google.maps.Point(17, 46),
+
+          	scaledSize: new google.maps.Size(37, 37),
+          }}
+        />
+      	)
       ))
    }
-    </GoogleMap>
-  </LoadScript>
+  </GoogleMap>
+
 	);
 }
 
