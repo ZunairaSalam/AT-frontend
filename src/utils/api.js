@@ -57,3 +57,20 @@ export function deAttachSensortoAsset(sensorId) {
 			console.error(err);
 		});
 }
+
+export function simulateSensorDataById(sensorId) {
+	return axios.post(`https://tranquil-dawn-42923.herokuapp.com/api/simulateById/${sensorId}`)
+		.then((res) => console.log(res))
+		.catch((err) => {
+		// catch error
+			console.error(err);
+		});
+}
+export function StopSimulateSensorDataById(sensorId) {
+	return axios.post(`https://tranquil-dawn-42923.herokuapp.com/api/cancelSimulationById/${sensorId}`)
+		.then((res) => console.log(res))
+		.catch((err) => {
+		// catch error
+			console.error(err);
+		});
+}
