@@ -4,10 +4,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import {
-	Menu, Dropdown, Row, Col, Button, Alert, Typography,
+	Menu, Dropdown, Row, Col, Button, Alert, Typography, Table,
 } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, PlusSquareTwoTone } from '@ant-design/icons';
+import { attachSensorColumns, attachAssetColumns } from '../utils/constants';
 import { getSensors, getAssets, attachSensortoAsset } from '../utils/api';
+
+import './table.css';
 
 const { Title } = Typography;
 function AssignSensors() {
@@ -121,6 +124,17 @@ function AssignSensors() {
   <div>
 
     <Title level={3}>Attach Sensors to assets</Title>
+    <Row style={{ alignItems: 'center' }}>
+      <Col span={10}>
+        <Table className="table-striped-rows" columns={attachSensorColumns} dataSource={sensorData} />
+      </Col>
+      <Col span={4}>
+        <PlusSquareTwoTone style={{ fontSize: '48px' }} twoToneColor="#002140" />
+      </Col>
+      <Col span={10}>
+        <Table className="table-striped-rows" columns={attachAssetColumns} dataSource={assetData} />
+      </Col>
+    </Row>
     <Row>
       <span>Sensor:</span>
       <Col span={6}>

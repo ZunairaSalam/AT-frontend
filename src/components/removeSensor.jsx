@@ -8,6 +8,7 @@ import {
 } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { getSensors, deAttachSensortoAsset } from '../utils/api';
+import './table.css';
 
 const { Title } = Typography;
 function RemoveSensors() {

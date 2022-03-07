@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import { getSensors } from '../utils/api';
 import { inActiveColumns } from '../utils/constants';
+import './table.css';
 
 const { Title } = Typography;
 const {
@@ -27,7 +28,7 @@ function InactiveSensors() {
     <Header className="site-layout-background" style={{ padding: 0 }}>
       <Title level={3}>Currently InActive Sensors</Title>
     </Header>
-    <Table columns={inActiveColumns} dataSource={data} />
+    <Table className="table-striped-rows" columns={inActiveColumns} dataSource={data} />
   </div>
 	);
 }

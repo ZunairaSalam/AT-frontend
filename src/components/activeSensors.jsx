@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import { getSensors } from '../utils/api';
 import { activeColumns } from '../utils/constants';
+import './table.css';
 
 const {
 	Header,
@@ -50,7 +51,7 @@ function ActiveSensors() {
     <Header className="site-layout-background" style={{ padding: 0 }}>
       <Title level={3}>Currently Active Sensors</Title>
     </Header>
-    <Table columns={activeColumns} dataSource={data} />
+    <Table className="table-striped-rows" columns={activeColumns} dataSource={data} />
   </div>
 	);
 }

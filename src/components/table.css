@@ -1,0 +1,8 @@
+
+/* .table-striped-rows thead {
+    background-color:  #002140;
+} */
+.ant-table-thead > tr > th {
+    color: white;
+    background-color:  #002140;
+}

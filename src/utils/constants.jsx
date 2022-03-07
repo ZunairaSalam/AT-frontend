@@ -161,3 +161,33 @@ export const locations = [
 		},
 	},
 ];
+
+export const attachSensorColumns = [
+	{
+		title: 'Sensor Id',
+		key: 'uid',
+		dataIndex: 'uid',
+	},
+	{
+		title: ' Sensor Name',
+		key: 'name',
+		dataIndex: 'name',
+	}];
+
+export const attachAssetColumns = [
+	{
+		title: 'Asset id',
+		dataIndex: 'id',
+		key: 'assetId',
+	},
+	{
+		title: 'Asset Type',
+		dataIndex: 'type',
+		key: 'type',
+	},
+	{
+		title: 'Asset Location',
+		dataIndex: 'location',
+		key: 'location',
+	},
+];
