@@ -29,34 +29,14 @@ function Dashboard() {
 			setInactiveCount(inactiveSensorsLength);
 		});
 	}, []);
-
-	// const getSensorsAll = async () => {
-	// 	try {
-	// 		  const res = await axiosHeader.get('sensor/all');
-	// 		  console.log(res.data[res.data.length - 1]);
-	// 		  setData(res);
-	// 		  console.log(res);
-	// 		  // setData(res.data[res.data.length - 1]);
-	// 		  data?.forEach((element) => {
-	// 			if (element.asset != null) {
-	// 				setActiveCount(activeCount + 1);
-	// 			} else { setInactiveCount(inactiveCount + 1); }
-	// 		});
-	// 	} catch (e) {
-	// 		  console.log(e);
-	// 	}
-	// };
-	// useEffect(() => {
-	// 	getSensorsAll();
-	// }, []);
 	return (
-  <div>
+  <div className="contentTransparentBox">
     <Title level={3}>Dashboard</Title>
     <Row>
       <Col span={6} offset={6} className="activeClass">
         {' '}
         <Card
-          bodyStyle={{ backgroundColor: 'rgba(60, 179, 113, 0.4)', border: 0 }}
+          bodyStyle={{ backgroundColor: 'rgba(0, 214, 7, 0.6)', border: 4 }}
           onClick={() => navigate('/activeSensors')}
         >
           <Statistic
@@ -72,7 +52,7 @@ function Dashboard() {
       <Col span={6} className="activeClass">
         {' '}
         <Card
-          bodyStyle={{ backgroundColor: 'rgba(255, 0, 0, 0.4)', border: 0 }}
+          bodyStyle={{ backgroundColor: 'rgba(255, 0, 0, 0.5)', border: 0 }}
           onClick={() => navigate('/inactiveSensors')}
         >
           <Statistic
