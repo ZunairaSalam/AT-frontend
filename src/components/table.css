@@ -1,8 +1,16 @@
-
+/* .table-striped-rows tr:nth-child(2n) td {
+    background-color: #d1d1d1;
+} */
 /* .table-striped-rows thead {
     background-color:  #002140;
 } */
-.ant-table-thead > tr > th {
+.ant-table-thead > tr > th, .ant-table-thead th.ant-table-column-has-sorters {
     color: white;
     background-color:  #002140;
+}
+.selectedRowStyle {
+    background-color:  #ff8614b2;
+}
+.normalRowStyle{
+    background-color:  #ffffff;
 }
