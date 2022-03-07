@@ -18,6 +18,9 @@ import {
 	MinusOutlined,
 	MonitorOutlined,
 	EnvironmentOutlined,
+	UserAddOutlined,
+	UserOutlined,
+	SmileOutlined,
 } from '@ant-design/icons';
 import './Home.css';
 import ActiveSensors from './activeSensors';
@@ -39,7 +42,7 @@ const { SubMenu } = Menu;
 
 function Home() {
 	const [collapsed, setCollapsed] = useState(false);
-	const [isLoggedin, setIsLoggedin] = useState(false);
+	const [isLoggedin, setIsLoggedin] = useState(!!sessionStorage.getItem('login-flag'));
 	console.log(isLoggedin);
 	//	const [visibleComp, setvisibleComp] = useState('1');
 	const navigate = useNavigate();
@@ -54,7 +57,7 @@ function Home() {
 	};
 	return (
   <Layout>
-    <Header theme="dark" className="header">
+    <Header className="header">
       {/* <div className="logo" /> */}
       {/* <img src={logo} alt="A" className="logo" /> */}
       {/* <h1 style={{ color: 'white' }}>SSET TRACKING PROJECT</h1> */}
@@ -62,16 +65,38 @@ function Home() {
       <h1>
         ASSET TRACKING PROJECT
       </h1>
-      {isLoggedin && (
       <Menu theme="dark" mode="horizontal">
-        <Menu.Item key="001" style={{ marginLeft: 'auto', backgroundColor: 'DodgerBlue' }} onClick={() => setIsLoggedin(!isLoggedin)}>{isLoggedin ? 'Logout' : 'Login'}</Menu.Item>
+        <Menu.Item key="001" icon={<UserAddOutlined />} style={{ marginLeft: 'auto', color: 'white' }} onClick={() => console.log('signup')}>Signup</Menu.Item>
+        {isLoggedin
+        && (
+        <Menu.Item
+          key="002"
+          icon={<UserOutlined />}
+          style={{ color: 'white' }}
+          onClick={() => {
+          	setIsLoggedin(false);
+          	sessionStorage.setItem('login-flag', false);
+          }}
+        >
+          Logout
+
+        </Menu.Item>
+        )}
+        <Menu.Item
+          key="003"
+          icon={<SmileOutlined />}
+          style={{ color: 'white' }}
+        >
+          About Us
+
+        </Menu.Item>
       </Menu>
-      )}
+      )
     </Header>
-    {isLoggedin
-    	&& (
+    {sessionStorage.getItem('login-flag') === true || isLoggedin
+    	? (
       <Layout style={{ minHeight: '92vh' }}>
-        <Sider className="site-layout-background" collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
+        <Sider theme="dark" className="site-layout-background" collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
           <Menu defaultSelectedKeys={['1']} mode="inline">
 
             <Menu.Item key="/dashboard" icon={<ControlOutlined />} onClick={onClickHandler}>
@@ -138,14 +163,14 @@ function Home() {
       <Route path="/canvas" element={<Canvas />} /> */}
             </Routes>
           </Content>
-          <Footer theme="dark">
-            Systems Ltd
-            <div><a href="https://www.systemsltd.com/">About Us</a></div>
-          </Footer>
         </Layout>
       </Layout>
-    	)}
-    	 {!isLoggedin && <LoginForm setLoginFunc={setIsLoggedin} />}
+    	) : <LoginForm setLoginFunc={setIsLoggedin} />}
+    	 {/* {!isLoggedin && <LoginForm setLoginFunc={setIsLoggedin} />} */}
+    <Footer theme="dark">
+      Systems Ltd
+      <div><a href="https://www.systemsltd.com/">About Us</a></div>
+    </Footer>
   </Layout>
 	);
 }

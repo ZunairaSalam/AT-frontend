@@ -2,6 +2,10 @@
   
   .site-layout .site-layout-background {
     background: #fff;
+    background-image: url('../../public/dashboard_back.jpg');
+  }
+  .ant-menu-inline .ant-menu-item{
+    margin-top: 13px;
   }
   .activeClass {
     /* background-color: rgb(0, 0, 0); */
@@ -41,8 +45,21 @@
   background-image: url('../../public/systems.png');
 }
 
-.site-layout-background {
-  background: #fff;
+.site-layout-background, .ant-menu, .ant-menu-sub {
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+}
+.ant-menu-sub.ant-menu-inline > .ant-menu-item{
+  background: #ffffff;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  width: 100%;
+	background: #002140;
+  color:white;
+  border-radius: 10px;
+}
+.header .ant-menu > .ant-menu-item:hover{
+  background: #0903a6;
 }
 .header h1{
   color: rgb(255, 255, 255); 
