@@ -4,10 +4,11 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import {
-	Menu, Dropdown, Row, Col, Button, Alert, Typography,
+	Menu, Dropdown, Row, Col, Button, Alert, Typography, Table,
 } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { getSensors, deAttachSensortoAsset } from '../utils/api';
+import { detachSensorColumns } from '../utils/constants';
 import './table.css';
 
 const { Title } = Typography;
@@ -82,6 +83,7 @@ function RemoveSensors() {
   <div>
 
     <Title level={3}>DeAttach Sensors from assets</Title>
+    <Table columns={detachSensorColumns} dataSource={sensorData} />
     <Row>
       <span>Sensor:</span>
       <Col span={6}>

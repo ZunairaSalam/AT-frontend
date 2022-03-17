@@ -1,21 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
 import {
-	Form, Input, Button, Checkbox, Row, Col, Divider, Layout,
+	Form, Input, Button, Checkbox, Row, Col, Divider, Layout, Spin,
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { sendLoginRequest } from '../utils/api';
+import { sendLoginRequest } from '../../../utils/api';
 import './login.css';
 
 const { Content } = Layout;
 // eslint-disable-next-line react/prop-types
 function LoginForm({ setLoginFunc }) {
+	const [loading, setLoading] = useState(false);
 	// const navigate = useNavigate();
 	// const [accessTokenfromApi, setAccessTokenfromApi] = useState();
 	const onFinish = (values) => {
 		// setAccessTokenfromApi(sendLoginRequest(values.username, values.password));
-
+		setLoading(true);
 		sendLoginRequest(values.username, values.password).then((res) => {
 			axios.defaults.headers.common.Authorization = `Bearer ${res}`;
 			setLoginFunc(true);
@@ -82,6 +83,7 @@ function LoginForm({ setLoginFunc }) {
             </Form>
           </Col>
         </Row>
+        {loading ? <Spin tip="Loading..." /> : ''}
       </div>
     </Content>
   </Layout>

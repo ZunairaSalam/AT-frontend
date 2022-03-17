@@ -5,7 +5,7 @@ import {
 	Menu,
 } from 'antd';
 import moment from 'moment';
-import { timeOptionsArray } from '../utils/constants';
+import { timeOptionsArray } from '../../../utils/constants';
 // .format('YYYY-MM-DD[T]HH:mm:ss[Z]')
 const now = moment();
 // eslint-disable-next-line react/prop-types

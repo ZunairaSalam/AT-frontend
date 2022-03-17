@@ -2,10 +2,15 @@
   
   .site-layout .site-layout-background {
     background: #fff;
-    background-image: url('../../public/background-transparent2.png');
+    background-image: url('../../public/background-transparent.png');
+    background-repeat: no-repeat;
+    background-size:cover;
   }
-  .ant-menu-inline .ant-menu-item{
+  /* .ant-menu-inline .ant-menu-item{
     margin-top: 13px;
+  } */
+  .ant-layout-sider-has-trigger{
+    padding-bottom: 0px;
   }
   .activeClass {
     /* background-color: rgb(0, 0, 0); */
@@ -39,11 +44,18 @@
 .logo {
   float: left;
   width: 20%;
-  height: 70px;
+  height: 45px;
   background-repeat: no-repeat;
-  margin: 2px -150px 0px -30px;
-  background-image: url('../../public/systems.png');
+  margin: 7px -16% 0px 0px;
+  background-image: url('../../public/tracking.png');
+  background-size: contain;
 }
+h1 {
+  /* background:transparent url('../../public/track.png') no-repeat;
+  background-size: 15%;
+  padding-left:70px; */
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
 
 .site-layout-background, .ant-menu, .ant-menu-sub {
   background: #ffffff;
@@ -58,8 +70,11 @@
   color:white;
   border-radius: 10px;
 }
-.header .ant-menu > .ant-menu-item:hover{
-  background: #0903a6;
+/* .header .ant-menu > .ant-menu-item:hover{
+  background: #1e93f3;
+} */
+.ant-layout-header{
+  padding: 0 6px;
 }
 .header h1{
   color: rgb(255, 255, 255); 
@@ -68,7 +83,7 @@
   align-items: center;
   float: left;
   font-size: 2em;
-  margin-left: 30%;
+  /* margin-left: 35%; */
 }
 .ant-layout-footer{
   background: #002140;
@@ -76,6 +91,7 @@
   color: rgb(255, 255, 255);
   float: left;
   height: 44px;
+  font-size: 17px;
 }
 .footer{
   /* background-image: url('../../public/systems.png');

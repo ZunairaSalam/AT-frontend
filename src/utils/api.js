@@ -1,5 +1,35 @@
 import axios from 'axios';
-import { apiUrl } from './constants';
+// import { apiUrl } from './constants';
+const apiUrl = 'https://at-backend1.herokuapp.com/';
+axios.defaults.headers.common.Authorization = `Bearer ${sessionStorage.getItem('auth-token')}`;
+
+export function addSensor(id, name, macAddress) {
+	console.log(name, id);
+	return axios.post(`${apiUrl}sensor/add`, {
+		name,
+		macAddress,
+	})
+		.then((res) => res.status)
+		.catch((err) => err);
+}
+export function addAsset(id, Ctype, loc) {
+	console.log(id, Ctype);
+	return axios.post(`${apiUrl}asset/add`, {
+		type: Ctype,
+		location: loc,
+	})
+		.then((res) => res.status)
+		.catch((err) => err);
+}
+
+export function updateAsset(id, Ctype, loc) {
+	console.log(id, loc);
+	return axios.patch(`${apiUrl}asset/update/${id}`, {
+		type: Ctype,
+	})
+		.then((res) => res.status)
+		.catch((err) => err);
+}
 
 export function getSensors() {
 	return axios.get(`${apiUrl}sensor/all`)
@@ -13,7 +43,7 @@ export function getSensors() {
 export function getSensorById(id, time) {
 	return axios.get(`${apiUrl}sensor/get/data/${id}?date=${time}`)// use id url
 		.then((res) => {
-			console.log(time);
+			console.log(res.data);
 			return res.data;
 		})
 		.catch((err) => {

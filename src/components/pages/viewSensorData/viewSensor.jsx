@@ -8,10 +8,10 @@ import {
 import moment from 'moment';
 import { DownOutlined } from '@ant-design/icons';
 import {
-	getSensors, getSensorById, simulateSensorDataById, StopSimulateSensorDataById,
-} from '../utils/api';
+	getSensors, getSensorById,
+} from '../../../utils/api';
 import SensorDropdown from './sensorDropdown';
-import SingleSensor from './singleSensor';
+import SingleSensor from '../../singleSensor';
 import TimeDropdown from './timeDropdown';
 
 const { Header, Content } = Layout;
@@ -53,13 +53,6 @@ function ViewSensor() {
 		// getDetailsBySensorIdTime(id, selectedTime);
 		console.log('handleSensorSelect: ', id);
 	};
-	const handleSimulateSensorClick = (id) => {
-		simulateSensorDataById(id);
-	};
-
-	const handleStopSimulateSensorClick = (id) => {
-		StopSimulateSensorDataById(id);
-	};
 	const menu = (
   <Menu>
     {allSensorsList?.map((elm) => (
@@ -100,7 +93,7 @@ function ViewSensor() {
         </Col>
         <Col span={4}>
           {' '}
-          <span>TimeStamp:</span>
+          <span>Date and Time:</span>
         </Col>
         <Col span={4}>
           <DatePicker
@@ -123,28 +116,6 @@ function ViewSensor() {
         </Col>
         <Col span={2}>
           <Button type="primary" disabled={!selectedSensorId} onClick={() => getDetailsBySensorIdTime(selectedSensorId, selectedTime)}>Get Sensor Data</Button>
-        </Col>
-        <Col span={2} offset={2}>
-          <Button
-            type="primary"
-            disabled={!selectedSensorId}
-            style={{ background: 'mediumSeaGreen', borderColor: 'mediumSeaGreen' }}
-            onClick={() => handleSimulateSensorClick(selectedSensorId)}
-          >
-            Simulate Sensor Data
-
-          </Button>
-        </Col>
-        <Col span={2} offset={2}>
-          <Button
-            type="primary"
-            disabled={!selectedSensorId}
-            style={{ background: 'tomato', borderColor: 'tomato' }}
-            onClick={() => handleStopSimulateSensorClick(selectedSensorId)}
-          >
-            Stop Simulation
-
-          </Button>
         </Col>
       </Row>
     </Content>

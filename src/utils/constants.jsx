@@ -1,9 +1,15 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-loss-of-precision */
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import moment from 'moment';
+import { Alert } from 'antd';
+// eslint-disable-next-line import/no-cycle
+import { deAttachSensortoAsset } from './api';
 
 export const getToken = () => localStorage.getItem('access_token');
 export const columns = [
@@ -41,7 +47,7 @@ export const columns = [
 		render: (text) => moment(text).format('MMM Do YY, h:mm:ss a'),
 	},
 ];
-export const apiUrl = 'https://at-backend1.herokuapp.com/';
+// export const apiUrl = 'https://at-backend1.herokuapp.com/';
 // https://at-backend1.herokuapp.com/sensor/get/Data/36
 
 export const timeOptionsArray = [{
@@ -78,9 +84,22 @@ export const assetColumns = [
 		key: 'assetLocation',
 	},
 	{
-		title: 'Sensor Id',
-		render: (record) => (record.sensor ? record.sensor.uid : 'Not attached'),
+		title: 'Sensor',
+		dataIndex: 'sensor',
+		render: (record) => (record !== null ? record.name : (<a>Attach Sensor</a>)),
 		key: 'suid',
+		filters: [
+			{
+			  text: 'attached',
+			  value: 'attached',
+			},
+			{
+			  text: 'Not attached',
+			  value: null,
+			},
+		  ],
+		  onFilter: (value, record) => (value === null
+			? (record.sensor === null) : (record.sensor !== null)),
 	},
 ];
 
@@ -110,6 +129,39 @@ export const activeColumns = [
 		render: (record) => (record.asset.location),
 		key: 'location',
 	},
+	{
+		title: 'Action',
+		key: 'action',
+		render: (text, record) => (
+  <a onClick={() => {
+  	deAttachSensortoAsset(record.uid).then((res) => {
+  		if (res === 200) {
+    <Alert
+      message="Success"
+      description={`Sensor# ${record.uid} detached`}
+      type="success"
+      closable
+      showIcon
+    />;
+  		} else if (res === 409) {
+  			console.log(res);
+    <Alert
+      message="Failed"
+      description={`Failed to detach Sensor# ${record.uid}`}
+      type="error"
+      closable
+      showIcon
+    />;
+  		}
+  	});
+  	console.log(text, record);
+  }}
+  >
+    Detach
+
+  </a>
+		),
+	  },
 ];
 export const inActiveColumns = [
 	{
@@ -191,3 +243,15 @@ export const attachAssetColumns = [
 		key: 'location',
 	},
 ];
+
+export const detachSensorColumns = [
+	{
+		title: 'Sensor Id',
+		key: 'uid',
+		dataIndex: 'uid',
+	},
+	{
+		title: ' Sensor Name',
+		key: 'name',
+		dataIndex: 'name',
+	}];

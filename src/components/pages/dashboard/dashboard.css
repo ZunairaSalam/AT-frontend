@@ -1,0 +1,10 @@
+.backgroundImage{
+    height: 100%;
+    overflow: auto;
+
+}
+#vector-map {
+    height: 200px;
+    width: 10px;
+  }
+  

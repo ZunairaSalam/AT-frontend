@@ -14,3 +14,7 @@
 .normalRowStyle{
     background-color:  #ffffff;
 }
+tbody > tr:hover > td { 
+    background-color:  #ff8614b2;
+    cursor: pointer;
+}

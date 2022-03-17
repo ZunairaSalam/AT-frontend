@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-	Table, Layout, Typography,
+	Table, Layout, Typography, Row, Col,
 } from 'antd';
 import { getSensors } from '../utils/api';
 import { inActiveColumns } from '../utils/constants';
@@ -28,7 +28,12 @@ function InactiveSensors() {
     <Header className="site-layout-background" style={{ padding: 0 }}>
       <Title level={3}>Currently InActive Sensors</Title>
     </Header>
-    <Table className="table-striped-rows" columns={inActiveColumns} dataSource={data} />
+    <Row justify="center">
+      <Col span={9}>
+        <Table className="table-striped-rows" columns={inActiveColumns} dataSource={data} />
+      </Col>
+    </Row>
+
   </div>
 	);
 }

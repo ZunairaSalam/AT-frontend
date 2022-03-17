@@ -1,41 +1,84 @@
+/* eslint-disable no-debugger */
+/* eslint-disable no-loss-of-precision */
+/* eslint-disable no-loop-func */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import { Button, Col } from 'antd';
 // import moment from 'moment';
-import MapContainer from './mapContainer';
+import image from '../container_icon.png';
+// import MapContainer from './mapContainer';
 import { getSensors, getSensorById } from '../utils/api';
+
+const { google } = window;
 
 function ShowMap() {
 	const [data, setData] = useState();
 	const [sensorsDetails, setSensorsDetails] = useState();
+	const [activeSensors, setActiveSensors] = useState();
+	const [markerData, setMarkerData] = useState([{
+		name: 'BLE 009',
+		lat: -74,
+		lng: 40.7,
+	}]);
+	const mapStyles = {
+		height: '70vh',
+		width: '100%',
+	};
+
+	const defaultCenter = {
+		lat: 33.6844,
+		lng: 73.0479,
+	};
 	useEffect(() => {
 		getSensors().then((res) => {
 			if (!res) return;
-			const activeSensors = res?.filter((value) => value.asset !== null);
-			if (activeSensors) {
-				console.log(activeSensors);
-				const sensorsIdList = activeSensors.map((a) => [a.uid, a.name]);
+			const activeSensorsList = res?.filter((value) => value.asset !== null);
+			if (activeSensorsList) {
+				console.log(activeSensorsList);
+				const sensorsIdList = activeSensorsList.map((a) => [a.uid, a.name]);
+				setActiveSensors(activeSensorsList);
 				setData(sensorsIdList);
 			}
 		});
 	}, []);
 
-	const onRefresh = () => {
-		console.log('refresh', data);
-		// const now = moment();
-		// const nowMinusFive = now.subtract(5, 'minutes').format('YYYY-MM-DD[T]HH:mm:ss[Z]');
-		// const newObj = {};
-		data.forEach((sensor) => {
-			getSensorById(sensor[0], '2022-02-24T15:50:31Z').then((res) => {
-				if (!res && res === undefined) return;
-				console.log(res[res.length - 1].anglePitch);
-				const x = res[res.length - 1].anglePitch;
-				const y = res[res.length - 1].angleRoll;
+	const markerDataArray = [];
+	useEffect(() => {
+		let sensorDetails;
+		// for (let i = 0; i < activeSensors?.length; i += 1) {
+		// 	// createMarkerObject(activeSensors[i]);
+		// 	const { name } = activeSensors[i];
+		// 	getSensorById(activeSensors[i].uid, '2022-03-08T01:36:07.319Z').then((response) => {
+		// 		console.log(response);
+		// 		const lat = response[response.length - 1].anglePitch + 25.109895082618078;
+		// 		const lng = response[response.length - 1].angleRoll + 62.342519824864265;
+		// 		sensorDetails = { name, lat, lng };
+		// 		markerDataArray.push(sensorDetails);
+		// 		// return ({ name, x, y });
+		// 		console.log(markerDataArray);
+		// 	});
+		// }
+		setMarkerData(markerDataArray);
+	}, [activeSensors]);
 
-				// newObj[id] = res.length - 1;
+	const onRefresh = () => {
+		let sensorDetails;
+		for (let i = 0; i < activeSensors?.length; i += 1) {
+			// createMarkerObject(activeSensors[i]);
+			const { name } = activeSensors[i];
+			debugger;
+			getSensorById(activeSensors[i].uid, '2022-03-08T01:36:07.319Z').then((response) => {
+				console.log(response);
+				const lat = response[response.length - 1].anglePitch + 25.1098950826180;
+				const lng = response[response.length - 1].angleRoll + 62.342519824864;
+				sensorDetails = { name, lat, lng };
+				markerDataArray.push(sensorDetails);
+				// return ({ name, x, y });
 			});
-		});
-		// console.log(newObj[36]);
+		}
+		console.log(markerDataArray);
+		setMarkerData(markerDataArray);
 	};
 	return (
   <div>
@@ -43,7 +86,32 @@ function ShowMap() {
       <Button type="primary" onClick={() => onRefresh()}>Refresh</Button>
     </Col>
     <br />
-    <MapContainer />
+    <GoogleMap
+      mapContainerStyle={mapStyles}
+      zoom={18}
+      center={defaultCenter}
+    >
+      {
+      markerData?.map((item) => (
+      	google && (
+        <Marker
+          title={item.name}
+          key={item.name}
+          position={{
+          	lat: 33.6844,
+          	lng: 73.0479,
+          }}
+          icon={{
+          	url: image,
+          	anchor: new google.maps.Point(17, 46),
+
+          	scaledSize: new google.maps.Size(37, 37),
+          }}
+        />
+      	)
+      ))
+   }
+    </GoogleMap>
   </div>
 	);
 }
