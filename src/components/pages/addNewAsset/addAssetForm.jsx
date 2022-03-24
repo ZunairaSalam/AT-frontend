@@ -6,7 +6,7 @@ import {
 	Button,
 	Select,
 	Layout,
-	Divider,
+	// Divider,
 	Row,
 	Col,
 	Alert,
@@ -20,8 +20,8 @@ function AddAssetForm({ setConfirmLoading }) {
 	const [assetId, setAssetId] = useState();
 	const onFinish = (values) => {
 		setConfirmLoading(true);
-		console.log(values.sku, values.type, values.location);
-		addAsset(values.sku, values.type, values.location);
+		console.log(values.sku, values.type, values.placement);
+		addAsset(values.sku, values.type, values.placement);
 		setAssetId(values.sku);
 		setShowAlert(true);
 	};
@@ -30,7 +30,8 @@ function AddAssetForm({ setConfirmLoading }) {
 	};
 	return (
   <Layout>
-    <Divider orientation="center">Add New Asset</Divider>
+    {/* <Divider orientation="center">Add New Asset</Divider> */}
+    <br />
     <Content>
       <Row justify="center" align="middle">
         <Col span={22}>
@@ -52,7 +53,7 @@ function AddAssetForm({ setConfirmLoading }) {
             {/* <Form.Item label="Description" name="description">
               <Input />
             </Form.Item> */}
-            <Form.Item label="Location" name="location">
+            <Form.Item label="Placement" name="placement">
               <Select>
                 <Select.Option value="Zone A">Zone A</Select.Option>
                 <Select.Option value="Zone B">Zone B</Select.Option>

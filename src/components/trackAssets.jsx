@@ -58,6 +58,7 @@ function TrackAssets() {
         // onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        footer={null}
       >
         <p>{modalTextAdd}</p>
       </Modal>
@@ -70,6 +71,7 @@ function TrackAssets() {
         // onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        footer={null}
       >
         <p>{modalTextUpdate}</p>
       </Modal>

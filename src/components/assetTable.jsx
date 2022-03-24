@@ -14,6 +14,7 @@ function AssetTable({ showModalUpdate, setModalTextUpdate }) {
 		getAssets().then((res) => {
 			if (!res) return;
 			setData(res);
+			console.log(res);
 		});
 	}, []);
 	return (
