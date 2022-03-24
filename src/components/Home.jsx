@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
@@ -19,7 +20,6 @@ import {
 	MonitorOutlined,
 	EnvironmentOutlined,
 	UserOutlined,
-	SmileOutlined,
 	DeploymentUnitOutlined,
 } from '@ant-design/icons';
 import './Home.css';
@@ -85,26 +85,6 @@ function Home() {
           }}
         >
           Logout
-
-        </Menu.Item>
-        )}
-        {!isLoggedin && (
-        <Menu.Item
-          key="003"
-          icon={<SmileOutlined />}
-          style={{ marginLeft: 'auto', color: 'white' }}
-        >
-          About Us
-
-        </Menu.Item>
-        )}
-        {isLoggedin && (
-        <Menu.Item
-          key="003"
-          icon={<SmileOutlined />}
-          style={{ color: 'white' }}
-        >
-          About Us
 
         </Menu.Item>
         )}
@@ -203,7 +183,7 @@ function Home() {
           </Content>
         </Layout>
       </Layout>
-    	) : <LoginForm setLoginFunc={setIsLoggedin} />}
+    	) : (<LoginForm setLoginFunc={setIsLoggedin} />)}
     	 {/* {!isLoggedin && <LoginForm setLoginFunc={setIsLoggedin} />} */}
     <Footer theme="dark">
       Systems Ltd

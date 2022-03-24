@@ -2,9 +2,9 @@
   
   .site-layout .site-layout-background {
     background: #fff;
-    background-image: url('../../public/background-transparent.png');
+    /* background-image: url('../../public/background-transparent.png');
     background-repeat: no-repeat;
-    background-size:cover;
+    background-size:cover; */
   }
   /* .ant-menu-inline .ant-menu-item{
     margin-top: 13px;
