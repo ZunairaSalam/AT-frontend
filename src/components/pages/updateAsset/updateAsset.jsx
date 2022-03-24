@@ -21,8 +21,8 @@ function UpdateAssetForm({ id, setConfirmLoading }) {
 	const [assetId, setAssetId] = useState(id);
 	const onFinish = (values) => {
 		setConfirmLoading(true);
-		console.log(values.sku, values.type, values.location);
-		updateAsset(id, values.type, values.location);
+		console.log(values.sku, values.type, values.placement);
+		updateAsset(id, values.type, values.placement);
 
 		setShowAlert(true);
 	};
@@ -31,7 +31,8 @@ function UpdateAssetForm({ id, setConfirmLoading }) {
 	};
 	return (
   <Layout>
-    <Divider orientation="center">Update Asset</Divider>
+    {/* <Divider orientation="center">Update Asset</Divider> */}
+    <br />
     <Content>
       <Row justify="center" align="middle">
         <Col span={22}>
@@ -53,7 +54,7 @@ function UpdateAssetForm({ id, setConfirmLoading }) {
             {/* <Form.Item label="Description" name="description">
               <Input />
             </Form.Item> */}
-            <Form.Item label="Location" name="location">
+            <Form.Item label="Placement" name="placement">
               <Select>
                 <Select.Option value="Zone A">Zone A</Select.Option>
                 <Select.Option value="Zone B">Zone B</Select.Option>

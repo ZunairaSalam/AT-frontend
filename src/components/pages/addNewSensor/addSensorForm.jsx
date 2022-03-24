@@ -4,7 +4,7 @@ import {
 	Input,
 	Button,
 	Layout,
-	Divider,
+	// Divider,
 	Row,
 	Col,
 	Alert,
@@ -40,14 +40,15 @@ function AddSensorForm({ setConfirmLoading, setVisible }) {
 			.then((res) => {
 				if (!res) { setConfirmLoading(false); }
 				setVisible(false);
+				setShowAlert(true);
 			});
-		setShowAlert(true);
 		setSensorImei(values.imei);
 	};
 
 	return (
   <Layout>
-    <Divider orientation="center">Add New Sensor</Divider>
+    {/* <Divider orientation="center">Add New Sensor</Divider> */}
+    <br />
     <Content>
       <Row justify="center" align="middle">
         <Col span={22}>

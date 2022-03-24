@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -54,7 +55,7 @@ function ActiveSensors() {
 			key: 'type',
 		},
 		{
-			title: 'Asset Location',
+			title: 'Asset Placement',
 			render: (record) => (record.asset !== null ? record.asset.location : '-'),
 			key: 'location',
 		},
@@ -130,14 +131,14 @@ function ActiveSensors() {
 		setVisible(true);
 	  };
 
-	const handleOk = () => {
-		setModalText('The modal will be closed after two seconds');
-		setConfirmLoading(true);
-		// setTimeout(() => {
-		//   setVisible(false);
-		//   setConfirmLoading(false);
-		// }, 2000);
-	  };
+	// const handleOk = () => {
+	// 	setModalText('The modal will be closed after two seconds');
+	// 	setConfirmLoading(true);
+	// 	// setTimeout(() => {
+	// 	//   setVisible(false);
+	// 	//   setConfirmLoading(false);
+	// 	// }, 2000);
+	//   };
 
 	  const handleCancel = () => {
 		console.log('Clicked cancel button');
@@ -161,9 +162,10 @@ function ActiveSensors() {
       <Modal
         title="Add New Sensor"
         visible={visible}
-        onOk={handleOk}
+        // onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        footer={null}
       >
         <p>{modalText}</p>
       </Modal>
