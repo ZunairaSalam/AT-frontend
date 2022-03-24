@@ -79,14 +79,14 @@ export const assetColumns = [
 		key: 'assetType',
 	},
 	{
-		title: 'Location',
+		title: 'Placement',
 		dataIndex: 'location',
 		key: 'assetLocation',
 	},
 	{
 		title: 'Sensor',
 		dataIndex: 'sensor',
-		render: (record) => (record !== null ? record.name : (<a>Attach Sensor</a>)),
+		render: (record) => (record !== null ? record.name : (<a href="/attachSensors">Attach Sensor</a>)),
 		key: 'suid',
 		filters: [
 			{
@@ -125,7 +125,7 @@ export const activeColumns = [
 		key: 'type',
 	},
 	{
-		title: 'Asset Location',
+		title: 'Asset Placement',
 		render: (record) => (record.asset.location),
 		key: 'location',
 	},

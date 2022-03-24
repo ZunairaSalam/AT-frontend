@@ -70,6 +70,15 @@ export function sendLoginRequest(emailParam, passwordParam) {
 		return res.data.access_token;
 	});
 }
+export function sendSignupRequest(emailParam, passwordParam) {
+	return axios.post('https://at-backend1.herokuapp.com/users/signup', {
+		email: emailParam,
+		password: passwordParam,
+	}).then((res) => {
+		localStorage.setItem('access_token', res.data.access_token);
+		return res.data.access_token;
+	});
+}
 export function attachSensortoAsset(sensorId, assetIdParam) {
 	return axios.patch(`${apiUrl}sensor/attach/${sensorId}`, {
 		assetId: assetIdParam,
