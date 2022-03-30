@@ -1,5 +1,5 @@
 .site-layout-content {
-    height: 85vh;
+    height: 100vh;
     overflow: auto;
     padding: 24px;
     background-color: black;
@@ -14,10 +14,23 @@
   }
   .login-form-box{
     background-color: #ffffff;
-    padding: 25px 25px;
+    padding: 20px 15px;
     border-radius: 10px;
   }
   .ant-input-affix-wrapper{
     width: 80%;
     padding: 6px, 11px;
+    font-size: 18px;
+  }
+  .ant-form-text{
+
+font-size: 22px;
+font-weight: bold;
+font-family:"Segoe UI","Helvetica Neue","Lucida Grande","Roboto","Ebrima","Nirmala UI",
+"Gadugi","Segoe Xbox Symbol","Segoe UI Symbol","Meiryo UI","Khmer UI","Tunga","Lao UI","Raavi","Iskoola Pota","Latha","Leelawadee","Microsoft YaHei UI","Microsoft JhengHei UI","Malgun Gothic","Estrangelo Edessa","Microsoft Himalaya","Microsoft New Tai Lue","Microsoft PhagsPa","Microsoft Tai Le","Microsoft Yi Baiti","Mongolian Baiti","MV Boli","Myanmar Text","Cambria Math";
+  }
+  .center-row{
+    
+      min-height: -webkit-fill-available;
+  
   }

@@ -8,9 +8,9 @@ function SensorDropdown({
 	// eslint-disable-next-line react/prop-types
 	uid, sname, asset, func,
 }) {
-	const onClickHandler = (id) => {
-		console.log(id);
-		func(id);
+	const onClickHandler = (id, name) => {
+		console.log(name);
+		func(id, name);
 	};
 	let myColor = 'green';
 	let status = 'Active';
@@ -28,7 +28,7 @@ function SensorDropdown({
       <div
         onClick={(e) => {
       	e.preventDefault();
-      	onClickHandler(uid);
+      	onClickHandler(uid, sname);
         }}
         role="button"
         tabIndex="0"

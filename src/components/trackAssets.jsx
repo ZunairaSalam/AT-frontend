@@ -8,7 +8,7 @@ import AddAssetForm from './pages/addNewAsset/addAssetForm';
 import UpdateAssetForm from './pages/updateAsset/updateAsset';
 import './table.css';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 function TrackAssets() {
 	const [visibleAdd, setVisibleAdd] = useState();
@@ -77,6 +77,7 @@ function TrackAssets() {
       </Modal>
 
     </Row>
+    <Text type="secondary" style={{ textAlign: 'left' }}>Click on Asset to update</Text>
   </span>
 	);
 }

@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { getToken } from './constants';
 
-// eslint-disable-next-line no-debugger
-debugger;
 const token = localStorage.getItem('access_token');
 
 export default axios.create({

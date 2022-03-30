@@ -12,15 +12,19 @@ import {
 } from '../../../utils/api';
 import SensorDropdown from './sensorDropdown';
 import SingleSensor from '../../singleSensor';
-import TimeDropdown from './timeDropdown';
+
+// import TimeDropdown from './timeDropdown';
 
 const { Header, Content } = Layout;
 function ViewSensor() {
 	const [allSensorsList, setAllSensorsList] = useState();
 	const [selectedSensorIdData, setSelectedSensorIdData] = useState();
 	const [selectedSensorId, setSelectedSensorId] = useState();
+	const [selectedSensorName, setSelectedSensorName] = useState();
 	const [selectedTime, setSelectedTime] = useState(moment().format('YYYY-MM-DD[T]HH:mm:ss[Z]'));
-	const [showTimeOption, setShowTimeOption] = useState();
+	const [isTimeSelected, setIsTimeSelected] = useState(false);
+
+	// const [showTimeOption, setShowTimeOption] = useState();
 	const { Title } = Typography;
 	// get all available sensors info
 	useEffect(() => {
@@ -46,10 +50,12 @@ function ViewSensor() {
 		// use .format() of moment.js to get desired format
 		console.log('Selected Time: ', value.format('YYYY-MM-DD[T]HH:mm:ss[Z]'));
 		setSelectedTime(value.format('YYYY-MM-DD[T]HH:mm:ss[Z]'));
+		setIsTimeSelected(true);
 	};
 
-	const handleSensorSelect = (id) => {
+	const handleSensorSelect = (id, name) => {
 		setSelectedSensorId(id);
+		setSelectedSensorName(name);
 		// getDetailsBySensorIdTime(id, selectedTime);
 		console.log('handleSensorSelect: ', id);
 	};
@@ -67,9 +73,9 @@ function ViewSensor() {
   </Menu>
 	);
 
-	const myTimeOptions = (
-  <TimeDropdown func={handleTimeSelect} showFunc={setShowTimeOption} />
-	);
+	// const myTimeOptions = (
+	// <TimeDropdown func={handleTimeSelect} showFunc={setShowTimeOption} />
+	// );
 
 	return (
   <div>
@@ -86,7 +92,7 @@ function ViewSensor() {
             trigger={['click']}
           >
             <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-              {selectedSensorId || 'Select Sensor'}
+              {selectedSensorName || 'Select Sensor'}
               <DownOutlined />
             </a>
           </Dropdown>
@@ -100,10 +106,13 @@ function ViewSensor() {
             showTime
             onChange={(value) => handleTimeSelect(value)}
             // onOk={getDetailsBySensorIdTime(selectedSensorId, selectedTime)}
-            onOk={(value) => { setShowTimeOption('Select Time'); handleTimeSelect(value); }}
+            onOk={(value) => {
+            	// setShowTimeOption('Select Time');
+            	handleTimeSelect(value);
+            }}
           />
         </Col>
-        <Col span={2}>
+        {/* <Col span={2}>
 
           <Dropdown overlay={myTimeOptions} trigger={['click']}>
             <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
@@ -111,11 +120,11 @@ function ViewSensor() {
               <DownOutlined />
             </a>
           </Dropdown>
-          {/* <DatePicker showTime onChange={onChange} /> */}
 
-        </Col>
+        </Col> */}
+        <Col span={2} />
         <Col span={2}>
-          <Button type="primary" disabled={!selectedSensorId} onClick={() => getDetailsBySensorIdTime(selectedSensorId, selectedTime)}>Get Sensor Data</Button>
+          <Button type="primary" disabled={!selectedSensorId && isTimeSelected} onClick={() => getDetailsBySensorIdTime(selectedSensorId, selectedTime)}>Get Sensor Data</Button>
         </Col>
       </Row>
     </Content>

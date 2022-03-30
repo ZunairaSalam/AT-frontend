@@ -29,8 +29,7 @@ import InactiveSensors from './inactiveSensors';
 import AssignSensors from './pages/attachSensors/assignSensors';
 import ViewSensor from './pages/viewSensorData/viewSensor';
 import TrackAssets from './trackAssets';
-// import ShowMap from './showMap';
-import ViewMap from './viewMap';
+import ShowVectorMap from './pages/vectorMap/showVectorMap';
 import Dashboard from './pages/dashboard/dashboard';
 import LoginForm from './pages/login/loginForm';
 import AddSensorForm from './pages/addNewSensor/addSensorForm';
@@ -45,7 +44,7 @@ const { SubMenu } = Menu;
 
 function Home() {
 	const [collapsed, setCollapsed] = useState(false);
-	const [isLoggedin, setIsLoggedin] = useState(!!sessionStorage.getItem('login-flag'));
+	const [isLoggedin, setIsLoggedin] = useState(sessionStorage.getItem('login-flag'));
 	console.log(isLoggedin);
 	//	const [visibleComp, setvisibleComp] = useState('1');
 	const navigate = useNavigate();
@@ -59,21 +58,24 @@ function Home() {
 		// setvisibleComp(e.key);
 	};
 	return (
-  <Layout>
-    <Header className="header">
-      {/* <div className="logo" /> */}
-      {/* <img src={logo} alt="A" className="logo" /> */}
-      {/* <h1 style={{ color: 'white' }}>SSET TRACKING PROJECT</h1> */}
-      <span className="logo" />
+  <div>
+    {sessionStorage.getItem('login-flag') === true || isLoggedin
+    	? (
+      <Layout>
+        <Header className="header">
+          {/* <div className="logo" /> */}
+          {/* <img src={logo} alt="A" className="logo" /> */}
+          {/* <h1 style={{ color: 'white' }}>SSET TRACKING PROJECT</h1> */}
+          <span className="logo" />
 
-      <h1>
-        Asset Tracking Project
-      </h1>
-      <Menu theme="dark" mode="horizontal">
-        {/* <Menu.Item key="001" icon={<UserAddOutlined />}
+          <h1>
+            Asset Tracking Project
+          </h1>
+          <Menu theme="dark" mode="horizontal">
+            {/* <Menu.Item key="001" icon={<UserAddOutlined />}
         style={{ marginLeft: 'auto', color: 'white' }}
         onClick={() => console.log('signup')}>Signup</Menu.Item> */}
-        {isLoggedin
+            {(sessionStorage.getItem('login-flag') === true || isLoggedin)
         && (
         <Menu.Item
           key="002"
@@ -88,108 +90,110 @@ function Home() {
 
         </Menu.Item>
         )}
-      </Menu>
-      )
-    </Header>
-    {sessionStorage.getItem('login-flag') === true || isLoggedin
-    	? (
-      <Layout style={{ minHeight: '85vh' }}>
-        <Sider theme="dark" className="site-layout-background" collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
-          <Menu defaultSelectedKeys={['1']} mode="inline">
+          </Menu>
+          )
+        </Header>
+        <Layout style={{ minHeight: '85vh' }}>
+          <Sider theme="dark" className="site-layout-background" collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
+            <Menu defaultSelectedKeys={['1']} mode="inline">
 
-            <Menu.Item key="/dashboard" icon={<ControlOutlined />} onClick={onClickHandler}>
-              Dashboard
-            </Menu.Item>
-
-            <SubMenu key="/sub1" icon={<AlertOutlined />} title="Sensors Details" onClick={onClickHandler}>
-              <Menu.Item key="/viewSensors" icon={<BarChartOutlined />} onClick={onClickHandler}>
-                View Sensor Data
+              <Menu.Item key="/dashboard" icon={<ControlOutlined />} onClick={onClickHandler}>
+                Dashboard
               </Menu.Item>
-              {/* <Menu.Item key="/addSensorForm" icon={<PlusCircleOutlined />}
+
+              <SubMenu key="/sub1" icon={<AlertOutlined />} title="Sensors Details" onClick={onClickHandler}>
+                <Menu.Item key="/viewSensors" icon={<BarChartOutlined />} onClick={onClickHandler}>
+                  View Sensor Data
+                </Menu.Item>
+                {/* <Menu.Item key="/addSensorForm" icon={<PlusCircleOutlined />}
               onClick={onClickHandler}>
                 Add new Sensor
               </Menu.Item> */}
-              <Menu.Item key="/activeSensors" icon={<CheckCircleOutlined />} onClick={onClickHandler}>
-                All Sensors
-              </Menu.Item>
+                <Menu.Item key="/activeSensors" icon={<CheckCircleOutlined />} onClick={onClickHandler}>
+                  All Sensors
+                </Menu.Item>
 
-              {/* <Menu.Item key="/inactiveSensors" icon={<ExclamationCircleOutlined />}
+                {/* <Menu.Item key="/inactiveSensors" icon={<ExclamationCircleOutlined />}
               onClick={onClickHandler}>
                 InActive Sensors
               </Menu.Item> */}
 
-              <Menu.Item key="/attachSensors" icon={<AimOutlined />} onClick={onClickHandler}>
-                Attach Sensors
-              </Menu.Item>
+                <Menu.Item key="/attachSensors" icon={<AimOutlined />} onClick={onClickHandler}>
+                  Attach Sensors
+                </Menu.Item>
 
-              {/* <Menu.Item key="/detachSensors" icon={<MinusOutlined />} onClick={onClickHandler}>
+                {/* <Menu.Item key="/detachSensors" icon={<MinusOutlined />}
+                onClick={onClickHandler}>
                 Detach Sensors
               </Menu.Item> */}
 
-            </SubMenu>
+              </SubMenu>
 
-            <SubMenu key="/sub2" icon={<DeploymentUnitOutlined />} title="Assets" onClick={onClickHandler}>
-              <Menu.Item key="/trackAssets" icon={<MonitorOutlined />} onClick={onClickHandler}>
-                View Assets Data
-              </Menu.Item>
-              {/* <Menu.Item key="/addAssetForm" icon={<PlusCircleOutlined />}
+              <SubMenu key="/sub2" icon={<DeploymentUnitOutlined />} title="Assets" onClick={onClickHandler}>
+                <Menu.Item key="/trackAssets" icon={<MonitorOutlined />} onClick={onClickHandler}>
+                  View Assets Data
+                </Menu.Item>
+                {/* <Menu.Item key="/addAssetForm" icon={<PlusCircleOutlined />}
               onClick={onClickHandler}>
                 Add new Asset
               </Menu.Item> */}
 
-              {/* <Menu.Item key="/updateAsset" icon={<ExclamationCircleOutlined />}
+                {/* <Menu.Item key="/updateAsset" icon={<ExclamationCircleOutlined />}
               onClick={onClickHandler}>
                 Update Assets
               </Menu.Item> */}
 
-              {/* <Menu.Item key="/detachSensors" icon={<MinusOutlined />} onClick={onClickHandler}>
+                {/* <Menu.Item key="/detachSensors" icon={<MinusOutlined />}
+                onClick={onClickHandler}>
                 Detach Sensors
               </Menu.Item> */}
 
-            </SubMenu>
-            <Menu.Item key="/showmap" icon={<EnvironmentOutlined />} onClick={onClickHandler}>
-              Map
-            </Menu.Item>
+              </SubMenu>
+              <Menu.Item key="/showVectorMap" icon={<EnvironmentOutlined />} onClick={onClickHandler}>
+                Vector Map
+              </Menu.Item>
 
-          </Menu>
-        </Sider>
-        <Layout className="site-layout">
-          <Content
-            className="site-layout-background"
-            style={{
+            </Menu>
+          </Sider>
+          <Layout className="site-layout">
+            <Content
+              className="site-layout-background"
+              style={{
             	margin: '24px 16px',
             	padding: 24,
             	minHeight: 280,
-            }}
-          >
-            <Routes>
-              <Route
-                path="/"
-                element={<Dashboard />}
-              />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/addSensorForm" element={<AddSensorForm />} />
-              <Route path="/viewSensors" element={<ViewSensor />} />
-              <Route path="/activeSensors" element={<ActiveSensors />} />
-              <Route path="/inactiveSensors" element={<InactiveSensors />} />
-              <Route path="/attachSensors" element={<AssignSensors />} />
-              <Route path="/addAssetForm" element={<AddAssetForm />} />
-              {/* <Route path="/detachSensors" element={<RemoveSensors />} /> */}
-              <Route path="/trackAssets" element={<TrackAssets />} />
-              <Route path="/showMap" element={<ViewMap />} />
-              {/* <Route path="/view/edit/:id" element={<EditBle />} />
+              }}
+            >
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Dashboard />}
+                />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/addSensorForm" element={<AddSensorForm />} />
+                <Route path="/viewSensors" element={<ViewSensor />} />
+                <Route path="/activeSensors" element={<ActiveSensors />} />
+                <Route path="/inactiveSensors" element={<InactiveSensors />} />
+                <Route path="/attachSensors" element={<AssignSensors />} />
+                <Route path="/addAssetForm" element={<AddAssetForm />} />
+                {/* <Route path="/detachSensors" element={<RemoveSensors />} /> */}
+                <Route path="/trackAssets" element={<TrackAssets />} />
+                <Route path="/showVectorMap" element={<ShowVectorMap />} />
+                {/* <Route path="/view/edit/:id" element={<EditBle />} />
       <Route path="/canvas" element={<Canvas />} /> */}
-            </Routes>
-          </Content>
+              </Routes>
+            </Content>
+          </Layout>
         </Layout>
+        <Footer theme="dark">
+          Systems Ltd
+          {/* <div><a href="https://www.systemsltd.com/">About Us</a></div> */}
+        </Footer>
       </Layout>
     	) : (<LoginForm setLoginFunc={setIsLoggedin} />)}
     	 {/* {!isLoggedin && <LoginForm setLoginFunc={setIsLoggedin} />} */}
-    <Footer theme="dark">
-      Systems Ltd
-      {/* <div><a href="https://www.systemsltd.com/">About Us</a></div> */}
-    </Footer>
-  </Layout>
+
+  </div>
 	);
 }
 export default Home;

@@ -14,7 +14,7 @@ function SingleSensor({ data }) {
     columns={columns}
     dataSource={data}
     onChange={onChange}
-    pagination={{ pageSize: 10 }}
+    pagination={{ pageSize: 6 }}
   />
 
 	);

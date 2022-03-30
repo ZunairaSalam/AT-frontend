@@ -20,6 +20,7 @@ function AssetTable({ showModalUpdate, setModalTextUpdate }) {
 	return (
 
   <Table
+    className="hover-table"
     columns={assetColumns}
     dataSource={data}
     bordered

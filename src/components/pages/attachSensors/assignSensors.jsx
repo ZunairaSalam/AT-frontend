@@ -90,7 +90,7 @@ function AssignSensors() {
     <Row style={{ alignItems: 'center' }}>
       <Col span={10}>
         <Table
-          className="table-striped-rows"
+          className="table-striped-rows hover-table"
           columns={attachSensorColumns}
           dataSource={sensorData}
           pagination={{ pageSize: 4 }}
@@ -112,7 +112,7 @@ function AssignSensors() {
       </Col>
       <Col span={10}>
         <Table
-          className="table-striped-rows"
+          className="table-striped-rows hover-table"
           columns={attachAssetColumns}
           dataSource={assetData}
           pagination={{ pageSize: 4 }}

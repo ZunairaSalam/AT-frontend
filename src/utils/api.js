@@ -113,3 +113,9 @@ export function StopSimulateSensorDataById(sensorId) {
 			console.error(err);
 		});
 }
+
+export function getSensorsByLastActive() {
+	return axios.get(`${apiUrl}sensor/map`)
+		.then((res) => res.data)
+		.catch((err) => err);
+}
