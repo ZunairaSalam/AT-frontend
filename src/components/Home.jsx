@@ -167,6 +167,10 @@ function Home() {
                   path="/"
                   element={<Dashboard />}
                 />
+                <Route
+                  path="/AT-frontend"
+                  element={<Dashboard />}
+                />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/addSensorForm" element={<AddSensorForm />} />
                 <Route path="/viewSensors" element={<ViewSensor />} />
