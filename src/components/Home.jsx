@@ -75,21 +75,19 @@ function Home() {
             {/* <Menu.Item key="001" icon={<UserAddOutlined />}
         style={{ marginLeft: 'auto', color: 'white' }}
         onClick={() => console.log('signup')}>Signup</Menu.Item> */}
-            {(sessionStorage.getItem('login-flag') === true || isLoggedin)
-        && (
-        <Menu.Item
-          key="002"
-          icon={<UserOutlined />}
-          style={{ marginLeft: 'auto', color: 'white' }}
-          onClick={() => {
+            <Menu.Item
+              key="002"
+              icon={<UserOutlined />}
+              style={{ marginLeft: 'auto', color: 'white' }}
+              onClick={() => {
           	setIsLoggedin(false);
           	sessionStorage.setItem('login-flag', false);
-          }}
-        >
-          Logout
+              }}
+            >
+              Logout
 
-        </Menu.Item>
-        )}
+            </Menu.Item>
+
           </Menu>
           )
         </Header>
