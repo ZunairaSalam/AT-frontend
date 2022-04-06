@@ -18,6 +18,7 @@ module.exports = {
 		'react',
 	],
 	rules: {
+		'no-console': 'off',
 		'linebreak-style': 0,
 		'no-tabs': 0,
 		'no-mixed-spaces-and-tabs': 0,

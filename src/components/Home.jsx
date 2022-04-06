@@ -10,13 +10,11 @@ import {
 } from 'react-router-dom';
 import {
 	ControlOutlined,
-	// ExclamationCircleOutlined,
 	CheckCircleOutlined,
 	AimOutlined,
 	AlertOutlined,
 	BarChartOutlined,
-	// PlusCircleOutlined,
-	// MinusOutlined,
+	AppstoreAddOutlined,
 	MonitorOutlined,
 	EnvironmentOutlined,
 	UserOutlined,
@@ -25,7 +23,6 @@ import {
 import './Home.css';
 import ActiveSensors from './pages/allSensors/allSensors';
 import InactiveSensors from './inactiveSensors';
-// import RemoveSensors from './removeSensor';
 import AssignSensors from './pages/attachSensors/assignSensors';
 import ViewSensor from './pages/viewSensorData/viewSensor';
 import TrackAssets from './trackAssets';
@@ -34,6 +31,7 @@ import Dashboard from './pages/dashboard/dashboard';
 import LoginForm from './pages/login/loginForm';
 import AddSensorForm from './pages/addNewSensor/addSensorForm';
 import AddAssetForm from './pages/addNewAsset/addAssetForm';
+import DefineArea from './pages/defineArea/defineArea';
 
 const {
 	Header, Content, Sider, Footer,
@@ -128,7 +126,7 @@ function Home({ isLoggedin }) {
 
               </SubMenu>
 
-              <SubMenu key="/sub2" icon={<DeploymentUnitOutlined />} title="Assets" onClick={onClickHandler}>
+              <SubMenu key="/sub2" icon={<DeploymentUnitOutlined />} title="Assets Details" onClick={onClickHandler}>
                 <Menu.Item key="/trackAssets" icon={<MonitorOutlined />} onClick={onClickHandler}>
                   View Assets Data
                 </Menu.Item>
@@ -151,7 +149,9 @@ function Home({ isLoggedin }) {
               <Menu.Item key="/showVectorMap" icon={<EnvironmentOutlined />} onClick={onClickHandler}>
                 Vector Map
               </Menu.Item>
-
+              <Menu.Item key="/setArea" icon={<AppstoreAddOutlined />} onClick={onClickHandler}>
+                Set Area
+              </Menu.Item>
             </Menu>
           </Sider>
           <Layout className="site-layout">
@@ -179,7 +179,7 @@ function Home({ isLoggedin }) {
                 <Route path="/inactiveSensors" element={<InactiveSensors />} />
                 <Route path="/attachSensors" element={<AssignSensors />} />
                 <Route path="/addAssetForm" element={<AddAssetForm />} />
-                {/* <Route path="/detachSensors" element={<RemoveSensors />} /> */}
+                <Route path="/setArea" element={<DefineArea />} />
                 <Route path="/trackAssets" element={<TrackAssets />} />
                 <Route path="/showVectorMap" element={<ShowVectorMap />} />
                 {/* <Route path="/view/edit/:id" element={<EditBle />} />
