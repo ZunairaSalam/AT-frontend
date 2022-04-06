@@ -5,9 +5,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import {
-	Table, Layout, Typography, Alert, Row, Button, Col, Modal,
+	useNavigate,
+} from 'react-router-dom';
+import {
+	Table, Layout, Typography, Alert, Row, Button, Col, Modal, Space, Tooltip, Popconfirm, message,
 } from 'antd';
-import { getSensors, deAttachSensortoAsset } from '../../../utils/api';
+import { StopOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+	getSensors, deAttachSensortoAsset, deleteSensorbyId,
+} from '../../../utils/api';
 // import { activeColumns } from '../utils/constants';
 import '../../table.css';
 import './allSensors.css';
@@ -17,16 +23,50 @@ const {
 	Header,
 } = Layout;
 const { Title } = Typography;
+
 function ActiveSensors() {
+	const navigate = useNavigate();
+	const [updated, setUpdated] = useState(false);
 	const [visible, setVisible] = useState();
 	const [confirmLoading, setConfirmLoading] = useState();
 	const [modalText, setModalText] = useState(<AddSensorForm
   setConfirmLoading={setConfirmLoading}
   setVisible={setVisible}
+  updateStateVal={updated}
+  updateState={setUpdated}
 	/>);
 	const [data, setData] = useState();
-	const [showAlert, setShowAlert] = useState(0);
 	const [selectedSensorId, setSelectedSensorId] = useState();
+
+	const confirmDelete = (uid) => {
+		deleteSensorbyId(uid).then(() => {
+			getSensors().then((res) => {
+				if (!res) return;
+				setData(res);
+			});
+			setUpdated(!updated);
+		});
+		message.success('Sensor Deleted');
+	};
+
+	const confirmRemove = (uid) => {
+		setSelectedSensorId(uid);
+		  deAttachSensortoAsset(uid).then((res) => {
+  		if (res === 200) {
+  			// setData(data.filter((elm) => elm.uid !== uid));
+			  getSensors().then((response) => {
+					if (!response) return;
+					setData(response);
+				});
+			  message.success(`Sensor# ${uid} detached!`);
+  		} else console.log(res);
+		  });
+	};
+
+	const cancel = (e) => {
+		console.log(e);
+		// message.error('Click on No');
+	};
 
 	const activeColumns = [
 		{
@@ -35,9 +75,19 @@ function ActiveSensors() {
 			dataIndex: 'uid',
 		},
 		{
+			title: 'IMEI No',
+			key: 'imei',
+			dataIndex: 'imei',
+		},
+		{
 			title: ' Sensor Name',
 			key: 'name',
 			dataIndex: 'name',
+		},
+		{
+			title: 'Mac Address',
+			key: 'macAddress',
+			dataIndex: 'macAddress',
 		},
 		{
 			title: ' Interval Time',
@@ -45,9 +95,9 @@ function ActiveSensors() {
 			dataIndex: 'intervalTime',
 		},
 		{
-			title: 'Asset id',
-			render: (record) => (record.asset !== null ? record.asset.id : '-'),
-			key: 'assetId',
+			title: 'Asset SKU',
+			render: (record) => (record.asset !== null ? record.asset.sku : '-'),
+			key: 'assetSku',
 		},
 		{
 			title: 'Asset Type',
@@ -63,82 +113,66 @@ function ActiveSensors() {
 			title: 'Action',
 			key: 'action',
 			render: (text, record) => (
-				record.asset === null ? (
-  <a style={{ color: 'Green' }} href="/attachSensors">
-    Attach
-  </a>
-				)
-					: (
-  <a
-    style={{ color: 'Red' }}
-    onClick={() => {
-  	setSelectedSensorId(record.uid);
-		  deAttachSensortoAsset(record.uid).then((res) => {
-  		if (res === 200) {
-  			setData(data.filter((elm) => elm.uid !== record.uid));
-  			setShowAlert(1);
-  		} else if (res === 409) { console.log(res); setShowAlert(2); } else console.log(res);
-		  });
-    }}
-  >
-    Detach
+  <Space size="middle">
+    { record.asset === null ? (
+      <Tooltip title="attach">
+        <a
+          style={{ color: 'black' }}
+          onClick={() => navigate('/attachSensors')}
+        >
+          <PlusOutlined />
+        </a>
+      </Tooltip>
+    )
+   	: (
+     <Popconfirm
+       title="detach this Sensor?"
+       onConfirm={() => confirmRemove(record.uid)}
+       onCancel={cancel}
+       okText="Yes"
+       cancelText="No"
+		   >
+       <Tooltip title="detach">
+         <a
+           style={{ color: 'black' }}
+         >
+           <StopOutlined />
 
-  </a>
-					)
+         </a>
+       </Tooltip>
+     </Popconfirm>
+   	)}
+    <Tooltip title="delete">
+      <Popconfirm
+        title="delete this Sensor?"
+        onConfirm={() => confirmDelete(record.uid)}
+        onCancel={cancel}
+        okText="Yes"
+        cancelText="No"
+      >
+        <a
+          style={{ color: 'black' }}
+        >
+          <DeleteOutlined />
+
+        </a>
+      </Popconfirm>
+    </Tooltip>
+  </Space>
 			),
 		  },
 	];
-	// this chunk is used in multiple components !!!!reuse
 
 	useEffect(() => {
 		getSensors().then((res) => {
 			if (!res) return;
-			// const activeSensors = res?.filter((value) => value.asset !== null);
-			// if (activeSensors) {
-			// 	console.log(activeSensors);
-			// 	setData(activeSensors);
-			// }
 			setData(res);
 		});
-	}, []);
-	const handleClose = () => {
-		setShowAlert(false);
-	};
-
-	const SuccessAlert = (
-  <Alert
-    message="Success"
-    description={`Sensor# ${selectedSensorId} detached`}
-    type="success"
-    closable
-    afterClose={handleClose}
-    showIcon
-		/>
-	);
-
-	const FailedAlert = (
-  <Alert
-    message="Error"
-    description={`Sensor# ${selectedSensorId} already attached`}
-    type="error"
-    closable
-    afterClose={handleClose}
-    showIcon
-		/>
-	);
+	}, [updated]);
 
 	const showModal = () => {
 		setVisible(true);
 	  };
-
-	// const handleOk = () => {
-	// 	setModalText('The modal will be closed after two seconds');
-	// 	setConfirmLoading(true);
-	// 	// setTimeout(() => {
-	// 	//   setVisible(false);
-	// 	//   setConfirmLoading(false);
-	// 	// }, 2000);
-	//   };
 
 	  const handleCancel = () => {
 		console.log('Clicked cancel button');
@@ -166,18 +200,13 @@ function ActiveSensors() {
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
+        destroyOnClose
       >
         <p>{modalText}</p>
       </Modal>
 
     </Row>
     <Table className="table-striped-rows" columns={activeColumns} dataSource={data} />
-    <Row justify="center">
-      {' '}
-      {showAlert === 1
-      	? (SuccessAlert) : showAlert === 2 ? FailedAlert : null}
-
-    </Row>
   </div>
 	);
 }

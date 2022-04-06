@@ -15,9 +15,7 @@ function ViewMap() {
 	// eslint-disable-next-line no-unused-vars
 	const [activeSensors, setActiveSensors] = useState();
 	const [activeSensorsDetails, setActiveSensorsDetails] = useState();
-	const [markersData, setMarkersData] = useState([{
-		name: 'Sensor 2.0', lat: '24.77195406981152', lng: '67.33489110379261', timestamp: '2022-03-24T23:35:13.570Z',
-	}]);
+	const [markersData, setMarkersData] = useState();
 	const markerDataArray = [];
 	const mapStyles = {
 		height: '60vh',
@@ -33,7 +31,7 @@ function ViewMap() {
 		getSensorsByLastActive().then((responseObj) => {
 			if (!responseObj) return;
 			console.log(responseObj);
-			const responseDataValues = responseObj?.map((element) => (
+			const responseDataValues = responseObj.data?.map((element) => (
 				{ name: element.sensor.name, lat: element.latitude, lng: element.longitude }
 			));
 			setMarkersData([...responseDataValues]);

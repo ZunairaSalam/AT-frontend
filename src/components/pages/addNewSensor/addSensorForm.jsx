@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import {
 	Form,
 	Input,
@@ -7,42 +8,34 @@ import {
 	// Divider,
 	Row,
 	Col,
-	Alert,
+	message,
 } from 'antd';
 import { addSensor } from '../../../utils/api';
 
 const { Content } = Layout;
 
 // eslint-disable-next-line react/prop-types
-function AddSensorForm({ setConfirmLoading, setVisible }) {
-	const [showAlert, setShowAlert] = useState(false);
-	const [sensorImei, setSensorImei] = useState();
-
-	const handleClose = () => {
-		setShowAlert(false);
-	};
-
-	// eslint-disable-next-line no-unused-vars
-	const SuccessAlert = (
-  <Alert
-    message="Success"
-    description="Sensor added"
-    type="success"
-    closable
-    afterClose={handleClose}
-    showIcon
-  />
-	);
+function AddSensorForm({
+	setConfirmLoading, setVisible, updateStateVal, updateState,
+}) {
 	const onFinish = (values) => {
 		setConfirmLoading(true);
 		console.log(values.imei, values.name, values.macAdd);
 		addSensor(values.imei, values.name, values.macAdd)
 			.then((res) => {
-				if (!res) { setConfirmLoading(false); }
-				setVisible(false);
-				setShowAlert(true);
+				if (!res) {
+					console.log('**************');
+					setConfirmLoading(false);
+				} else if (res === 201) {
+					setVisible(false);
+					setConfirmLoading(false);
+
+					console.log(res);
+					message.success('Sensor Added!');
+				} else { message.error('Oops Something wrong!'); }
 			});
-		setSensorImei(values.imei);
+		// setSensorImei(values.imei);
+		updateState(!updateStateVal);
 	};
 
 	return (
@@ -58,13 +51,42 @@ function AddSensorForm({ setConfirmLoading, setVisible }) {
             layout="horizontal"
             onFinish={onFinish}
           >
-            <Form.Item label="IMEI No." name="imei">
+            <Form.Item
+              label="IMEI No."
+              name="imei"
+              rules={[
+            	{
+            		required: true,
+            		message: 'IMEI cannot be empty!',
+            	},
+              	{ min: 15, message: 'IMEI must be minimum 15 characters.' },
+              ]}
+            >
               <Input />
             </Form.Item>
-            <Form.Item label="name" name="name">
+            <Form.Item
+              label="name"
+              name="name"
+              rules={[
+            	{
+            		required: true,
+            		message: 'Name cannot be empty!',
+            	},
+              ]}
+            >
               <Input />
             </Form.Item>
-            <Form.Item label="mac Address" name="macAdd">
+            <Form.Item
+              label="mac Address"
+              name="macAdd"
+              rules={[
+            	{
+            		required: true,
+            		message: 'mac address cannot be empty!',
+            	},
+              	{ min: 19, message: 'mac address must be minimum 19 characters.' },
+              ]}
+            >
               <Input />
             </Form.Item>
             {/* <Form.Item label="Type" name="type">
@@ -82,20 +104,6 @@ function AddSensorForm({ setConfirmLoading, setVisible }) {
         </Col>
       </Row>
     </Content>
-    <Row justify="center">
-      <Col>
-        {showAlert && (
-          <Alert
-            message="Success"
-            description={`Sensor# ${sensorImei} added`}
-            type="success"
-            closable
-            afterClose={handleClose}
-            showIcon
-          />
-        )}
-      </Col>
-    </Row>
   </Layout>
 	);
 }

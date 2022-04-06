@@ -11,11 +11,15 @@ import './table.css';
 const { Title, Text } = Typography;
 
 function TrackAssets() {
+	const [updated, setUpdated] = useState(false);
 	const [visibleAdd, setVisibleAdd] = useState();
 	const [visibleUpdate, setVisibleUpdate] = useState();
 	const [confirmLoading, setConfirmLoading] = useState();
 	const [modalTextAdd, setModalTextAdd] = useState(<AddAssetForm
   setConfirmLoading={setConfirmLoading}
+  setVisible={setVisibleAdd}
+  updateStateVal={updated}
+  updateState={setUpdated}
 	/>);
 	const [modalTextUpdate, setModalTextUpdate] = useState();
 
@@ -26,14 +30,6 @@ function TrackAssets() {
 	  const showModalUpdate = () => {
 		setVisibleUpdate(true);
 	  };
-	// const handleOk = () => {
-	// 	setModalText('The modal will be closed after two seconds');
-	// 	setConfirmLoading(true);
-	// 	// setTimeout(() => {
-	// 	//   setVisible(false);
-	// 	//   setConfirmLoading(false);
-	// 	// }, 2000);
-	// };
 
 	const handleCancel = () => {
 		console.log('Clicked cancel button');
@@ -50,7 +46,11 @@ function TrackAssets() {
 
       </Col>
     </Row>
-    <AssetTable showModalUpdate={showModalUpdate} setModalTextUpdate={setModalTextUpdate} />
+    <AssetTable
+      showModalUpdate={showModalUpdate}
+      setModalTextUpdate={setModalTextUpdate}
+      updateStateVal={updated}
+    />
     <Row justify="center">
       <Modal
         title="Add New Asset"
@@ -59,6 +59,7 @@ function TrackAssets() {
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
+        destroyOnClose
       >
         <p>{modalTextAdd}</p>
       </Modal>
@@ -72,12 +73,12 @@ function TrackAssets() {
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={null}
+        destroyOnClose
       >
         <p>{modalTextUpdate}</p>
       </Modal>
 
     </Row>
-    <Text type="secondary" style={{ textAlign: 'left' }}>Click on Asset to update</Text>
   </span>
 	);
 }

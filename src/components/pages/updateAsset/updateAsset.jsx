@@ -11,24 +11,26 @@ import {
 	Row,
 	Col,
 	Alert,
+	message,
 } from 'antd';
 import { updateAsset } from '../../../utils/api';
 
 const { Content } = Layout;
 
-function UpdateAssetForm({ id, setConfirmLoading }) {
+function UpdateAssetForm({ id, updateState }) {
 	const [showAlert, setShowAlert] = useState(false);
 	const [assetId, setAssetId] = useState(id);
-	const onFinish = (values) => {
-		setConfirmLoading(true);
-		console.log(values.sku, values.type, values.placement);
-		updateAsset(id, values.type, values.placement);
 
-		setShowAlert(true);
+	const onFinish = (values) => {
+		console.log(values.sku, values.type, values.placement);
+		updateAsset(id, values.type, values.placement)
+			.then((res) => {
+				if (res === 200) updateState(true);
+				else console.log(res);
+				message.success(`Asset with sku#${values.sku} updated!`);
+			});
 	};
-	const handleClose = () => {
-		setShowAlert(false);
-	};
+
 	return (
   <Layout>
     {/* <Divider orientation="center">Update Asset</Divider> */}
@@ -42,7 +44,7 @@ function UpdateAssetForm({ id, setConfirmLoading }) {
             layout="horizontal"
             onFinish={onFinish}
           >
-            <Form.Item label="Asste SKU" name="sku">
+            <Form.Item label="Asste Id" name="sku">
               <Input defaultValue={assetId} disabled />
             </Form.Item>
             <Form.Item label="Type" name="type">
@@ -74,20 +76,7 @@ function UpdateAssetForm({ id, setConfirmLoading }) {
         </Col>
       </Row>
     </Content>
-    <Row justify="center">
-      <Col>
-        {showAlert && (
-          <Alert
-            message="Success"
-            description={`Asset# ${assetId} updated`}
-            type="success"
-            closable
-            afterClose={handleClose}
-            showIcon
-          />
-        )}
-      </Col>
-    </Row>
+
   </Layout>
 	);
 }

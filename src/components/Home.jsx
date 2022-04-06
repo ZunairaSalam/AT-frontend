@@ -42,10 +42,11 @@ const {
 // const { Title } = Typography;
 const { SubMenu } = Menu;
 
-function Home() {
+// eslint-disable-next-line react/prop-types
+function Home({ isLoggedin }) {
 	const [collapsed, setCollapsed] = useState(false);
-	const [isLoggedin, setIsLoggedin] = useState(sessionStorage.getItem('login-flag'));
-	console.log(isLoggedin);
+	const [Loggedin, setLoggedin] = useState(isLoggedin);
+	console.log(Loggedin);
 	//	const [visibleComp, setvisibleComp] = useState('1');
 	const navigate = useNavigate();
 	const onCollapseHandler = (collapsedInput) => {
@@ -59,7 +60,7 @@ function Home() {
 	};
 	return (
   <div>
-    {sessionStorage.getItem('login-flag') === true || isLoggedin
+    {sessionStorage.getItem('login-flag') === true || Loggedin
     	? (
       <Layout>
         <Header className="header">
@@ -80,7 +81,7 @@ function Home() {
               icon={<UserOutlined />}
               style={{ marginLeft: 'auto', color: 'white' }}
               onClick={() => {
-          	setIsLoggedin(false);
+          	setLoggedin(false);
           	sessionStorage.setItem('login-flag', false);
               }}
             >
@@ -187,12 +188,9 @@ function Home() {
             </Content>
           </Layout>
         </Layout>
-        <Footer theme="dark">
-          Systems Ltd
-          {/* <div><a href="https://www.systemsltd.com/">About Us</a></div> */}
-        </Footer>
+        <Footer theme="dark" />
       </Layout>
-    	) : (<LoginForm setLoginFunc={setIsLoggedin} />)}
+    	) : (<LoginForm setLoginFunc={setLoggedin} />)}
     	 {/* {!isLoggedin && <LoginForm setLoginFunc={setIsLoggedin} />} */}
 
   </div>

@@ -7,11 +7,10 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import moment from 'moment';
-import { Alert } from 'antd';
-// eslint-disable-next-line import/no-cycle
-import { deAttachSensortoAsset } from './api';
+import { Alert, Space } from 'antd';
 
 export const getToken = () => localStorage.getItem('access_token');
+
 export const columns = [
 	{
 		title: 'Sr.No',
@@ -96,68 +95,20 @@ export const assetColumns = [
 		  onFilter: (value, record) => (value === null
 			? (record.sensor === null) : (record.sensor !== null)),
 	},
-];
-
-export const activeColumns = [
-	{
-		title: 'Sensor Id',
-		key: 'uid',
-		dataIndex: 'uid',
-	},
-	{
-		title: ' Sensor Name',
-		key: 'name',
-		dataIndex: 'name',
-	},
-	{
-		title: 'Asset id',
-		render: (record) => (record.asset.id),
-		key: 'assetId',
-	},
-	{
-		title: 'Asset Type',
-		render: (record) => (record.asset.type),
-		key: 'type',
-	},
-	{
-		title: 'Asset Placement',
-		render: (record) => (record.asset.location),
-		key: 'location',
-	},
 	{
 		title: 'Action',
 		key: 'action',
 		render: (text, record) => (
-  <a onClick={() => {
-  	deAttachSensortoAsset(record.uid).then((res) => {
-  		if (res === 200) {
-    <Alert
-      message="Success"
-      description={`Sensor# ${record.uid} detached`}
-      type="success"
-      closable
-      showIcon
-    />;
-  		} else if (res === 409) {
-  			console.log(res);
-    <Alert
-      message="Failed"
-      description={`Failed to detach Sensor# ${record.uid}`}
-      type="error"
-      closable
-      showIcon
-    />;
-  		}
-  	});
-  	console.log(text, record);
-  }}
-  >
-    Detach
-
-  </a>
+  <Space size="middle">
+    <a>
+      Update
+    </a>
+    <a>Delete</a>
+  </Space>
 		),
 	  },
 ];
+
 export const inActiveColumns = [
 	{
 		title: 'Sensor Id',
@@ -223,9 +174,9 @@ export const attachSensorColumns = [
 
 export const attachAssetColumns = [
 	{
-		title: 'Asset id',
-		dataIndex: 'id',
-		key: 'assetId',
+		title: 'Asset sku',
+		dataIndex: 'sku',
+		key: 'assetSku',
 	},
 	{
 		title: 'Asset Type',

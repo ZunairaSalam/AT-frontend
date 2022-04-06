@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import {
-	Row, Col, Button, Alert, Typography, Table,
+	Row, Col, Button, Typography, Table, message,
 } from 'antd';
 import { PlusSquareTwoTone } from '@ant-design/icons';
 import { attachSensorColumns, attachAssetColumns } from '../../../utils/constants';
@@ -18,7 +18,6 @@ function AssignSensors() {
 	const [selectedSensorId, setSelectedSensorId] = useState();
 	const [assetData, setAssetData] = useState();
 	const [selectedAssetId, setSelectedAssetId] = useState();
-	const [showAlert, setShowAlert] = useState(0);
 	const [selectedRow1, setSelectedRow1] = useState();
 	const [selectedRow2, setSelectedRow2] = useState();
 	useEffect(() => {
@@ -51,38 +50,15 @@ function AssignSensors() {
 	const handleSubmit = () => {
 		console.log('submit');
 		attachSensortoAsset(selectedSensorId, selectedAssetId).then((res) => {
-			if (res === 200) {
+			if (res?.status === 200) {
 				setSensorData(sensorData.filter((elm) => elm.uid !== selectedSensorId));
-				setAssetData(assetData.filter((elm) => elm.id !== selectedAssetId));
-				setShowAlert(1);
-			} else if (res === 409) { console.log(res); setShowAlert(2); } else console.log(res);
+				setAssetData(assetData.filter((elm) => elm.uid !== selectedAssetId));
+				message.success(`Sensor# ${selectedSensorId} attached to Asset# ${selectedAssetId}`);
+			} else {
+				message.error(`Error occured: ${res.status}`);
+			}
 		});
 	};
-	const handleClose = () => {
-		setShowAlert(false);
-	};
-
-	const SuccessAlert = (
-  <Alert
-    message="Success"
-    description={`Sensor# ${selectedSensorId} attached to Asset# ${selectedAssetId}`}
-    type="success"
-    closable
-    afterClose={handleClose}
-    showIcon
-  />
-	);
-
-	const FailedAlert = (
-  <Alert
-    message="Error"
-    description={`Sensor# ${selectedSensorId} already attached`}
-    type="error"
-    closable
-    afterClose={handleClose}
-    showIcon
-  />
-	);
 	return (
   <div>
 
@@ -112,14 +88,14 @@ function AssignSensors() {
       </Col>
       <Col span={10}>
         <Table
-          className="table-striped-rows hover-table"
+          className="hover-table"
           columns={attachAssetColumns}
           dataSource={assetData}
           pagination={{ pageSize: 4 }}
           onRow={(record, rowIndex) => ({
         	onClick: () => {
           		setSelectedRow2(rowIndex);
-        		handleAssetSelect(record.id);
+        		handleAssetSelect(record.uid);
         		console.log(record, rowIndex);
         	},
           })}
@@ -132,14 +108,8 @@ function AssignSensors() {
     </Row>
     <Row justify="center">
       <Col span={2}>
-        <Button type="primary" disabled={!((selectedSensorId && selectedAssetId))} onClick={() => handleSubmit()}>Submit</Button>
+        <Button type="primary" disabled={!(selectedSensorId && selectedAssetId)} onClick={() => handleSubmit()}>Submit</Button>
       </Col>
-    </Row>
-    <Row justify="center" style={{ margin: 26 }}>
-      {' '}
-      {showAlert === 1
-      	? (SuccessAlert) : showAlert === 2 ? FailedAlert : null}
-
     </Row>
 
   </div>

@@ -76,7 +76,7 @@ function Dashboard() {
               onClick={() => navigate('/activeSensors')}
             >
               <Statistic
-                title="Total Active Sensors"
+                title="Total Attached Sensors"
                 value={activeCount}
                 valueStyle={{ color: '#3f8600' }}
                 prefix={<CheckOutlined />}
@@ -95,7 +95,7 @@ function Dashboard() {
               onClick={() => navigate('/attachSensors')}
             >
               <Statistic
-                title="Total InActive Sensors"
+                title="Total UnAttached Sensors"
                 value={inactiveCount}
                 valueStyle={{ color: '#cf1322' }}
                 prefix={<StopOutlined />}
