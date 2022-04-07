@@ -31,10 +31,11 @@ export function addAsset(id, Ctype, loc) {
 		});
 }
 
-export function updateAsset(id, Ctype, loc) {
-	console.log(id, loc);
+export function updateAsset(id, Ctype, areaId) {
+	console.log(id, areaId);
 	return axios.patch(`${apiUrl}asset/update/${id}`, {
 		type: Ctype,
+		area: areaId,
 	})
 		.then((res) => res.status)
 		.catch((err) => {
@@ -142,6 +143,34 @@ export function deleteSensorbyId(sensorId) {
 		})
 		.catch((err) => {
 			message.error(err.response.data.message);
+			console.log(err);
+		});
+}
+
+export function getBlocks() {
+	return axios.get(`${apiUrl}area/all`)
+		.then((res) => res.data)
+		.catch((err) => {
+			message.error(err.response.data.message);
+			console.log(err);
+		});
+}
+export function deleteBlock(blockId) {
+	return axios.delete(`${apiUrl}area/delete/${blockId}`)
+		.then((res) => res.data)
+		.catch((err) => {
+			message.error(err.response.data.error);
+			console.log(err);
+		});
+}
+
+export function addBlock(blockName) {
+	return axios.post(`${apiUrl}area/add`, {
+		blockName,
+	})
+		.then((res) => res.data)
+		.catch((err) => {
+			message.error(err.response.data.error);
 			console.log(err);
 		});
 }

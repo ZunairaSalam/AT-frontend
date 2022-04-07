@@ -50,9 +50,10 @@ function AssetTable({ showModalUpdate, setModalTextUpdate, updateStateVal }) {
 			key: 'assetType',
 		},
 		{
-			title: 'Placement',
-			dataIndex: 'location',
-			key: 'assetLocation',
+			title: 'Area',
+			dataIndex: 'area',
+			key: 'area',
+			render: (record) => (record !== null ? record.blockName : '-'),
 		},
 		{
 			title: 'Sensor',
@@ -87,7 +88,7 @@ function AssetTable({ showModalUpdate, setModalTextUpdate, updateStateVal }) {
       <a
         style={{ color: 'black' }}
         onClick={() => {
-  	setAssetIdToUpdate(record.id);
+  	setAssetIdToUpdate(record.uid);
 				  setModalTextUpdate(<UpdateAssetForm id={record.uid} updateState={setUpdated} />);
 				  showModalUpdate();
 				 console.log(record);
@@ -117,17 +118,6 @@ function AssetTable({ showModalUpdate, setModalTextUpdate, updateStateVal }) {
         <Tooltip title="delete">
           <a
             style={{ color: 'black' }}
-    //         onClick={() => {
-	//   deleteAssetbyId(record.uid)
-	// 	  .then(() => {
-	// 		  console.log('asset deleted:', record);
-	// 		  getAssets().then((res) => {
-	// 			  if (!res) return;
-	// 			  setData(res);
-	// 			  console.log(res);
-	// 		  });
-	// 	  });
-	//   }}
           >
             <DeleteOutlined />
 

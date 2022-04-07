@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Form,
 	Input,
@@ -13,7 +13,7 @@ import {
 	Alert,
 	message,
 } from 'antd';
-import { addAsset } from '../../../utils/api';
+import { addAsset, getBlocks } from '../../../utils/api';
 
 const { Content } = Layout;
 
@@ -21,6 +21,7 @@ function AddAssetForm({
 	setConfirmLoading, setVisible, updateStateVal, updateState,
 }) {
 	const [assetId, setAssetId] = useState();
+	const [blocksData, setBlocksData] = useState();
 	const onFinish = (values) => {
 		setConfirmLoading(true);
 		console.log(values.sku, values.type, values.placement);
@@ -33,6 +34,14 @@ function AddAssetForm({
 		setAssetId(values.sku);
 		updateState(!updateStateVal);
 	};
+
+	useEffect(() => {
+		getBlocks().then((res) => {
+			if (!res) return;
+			setBlocksData(res);
+			console.log(res);
+		});
+	}, []);
 
 	return (
   <Layout>
@@ -70,6 +79,7 @@ function AddAssetForm({
               ]}
             >
               <Select>
+                <Select.Option value="Container 2020">Container 2020</Select.Option>
                 <Select.Option value="Container 2021">Container 2021</Select.Option>
                 <Select.Option value="Container 2022">Container 2022</Select.Option>
               </Select>
@@ -87,12 +97,16 @@ function AddAssetForm({
             	},
               ]}
             >
+
               <Select>
-                <Select.Option value="Zone A">Zone A</Select.Option>
-                <Select.Option value="Zone B">Zone B</Select.Option>
-                <Select.Option value="Zone C">Zone C</Select.Option>
-                <Select.Option value="Zone D">Zone D</Select.Option>
+                { blocksData?.map((block) => (
+                  <Select.Option key={block.uid} value={block.blockName}>
+                    {block.blockName}
+                  </Select.Option>
+                ))}
+
               </Select>
+
             </Form.Item>
             {/* <Form.Item style={{ alignContent: 'center' }}>
               <Button type="primary" htmlType="submit" className="login-form-button">ADD</Button>

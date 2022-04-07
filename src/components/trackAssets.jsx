@@ -36,6 +36,7 @@ function TrackAssets() {
 		setVisibleAdd(false);
 		setVisibleUpdate(false);
 	};
+
 	return (
   <span>
     <Title level={3}>All Assets</Title>

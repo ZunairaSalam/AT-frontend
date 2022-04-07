@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Form,
 	Input,
@@ -13,13 +13,14 @@ import {
 	Alert,
 	message,
 } from 'antd';
-import { updateAsset } from '../../../utils/api';
+import { updateAsset, getBlocks } from '../../../utils/api';
 
 const { Content } = Layout;
 
 function UpdateAssetForm({ id, updateState }) {
 	const [showAlert, setShowAlert] = useState(false);
 	const [assetId, setAssetId] = useState(id);
+	const [blocksData, setBlocksData] = useState();
 
 	const onFinish = (values) => {
 		console.log(values.sku, values.type, values.placement);
@@ -27,10 +28,16 @@ function UpdateAssetForm({ id, updateState }) {
 			.then((res) => {
 				if (res === 200) updateState(true);
 				else console.log(res);
-				message.success(`Asset with sku#${values.sku} updated!`);
+				message.success(`Asset with id: ${id} updated!`);
 			});
 	};
-
+	useEffect(() => {
+		getBlocks().then((res) => {
+			if (!res) return;
+			setBlocksData(res);
+			console.log(res);
+		});
+	}, []);
 	return (
   <Layout>
     {/* <Divider orientation="center">Update Asset</Divider> */}
@@ -44,7 +51,7 @@ function UpdateAssetForm({ id, updateState }) {
             layout="horizontal"
             onFinish={onFinish}
           >
-            <Form.Item label="Asste Id" name="sku">
+            <Form.Item label="Asset Id" name="sku">
               <Input defaultValue={assetId} disabled />
             </Form.Item>
             <Form.Item label="Type" name="type">
@@ -58,10 +65,12 @@ function UpdateAssetForm({ id, updateState }) {
             </Form.Item> */}
             <Form.Item label="Placement" name="placement">
               <Select>
-                <Select.Option value="Zone A">Zone A</Select.Option>
-                <Select.Option value="Zone B">Zone B</Select.Option>
-                <Select.Option value="Zone C">Zone C</Select.Option>
-                <Select.Option value="Zone D">Zone D</Select.Option>
+                { blocksData?.map((block) => (
+                  <Select.Option key={block.uid} value={block.uid}>
+                    {block.blockName}
+                  </Select.Option>
+                ))}
+
               </Select>
             </Form.Item>
             {/* <Form.Item style={{ alignContent: 'center' }}>
