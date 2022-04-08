@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import {
-	Card, Col, Row, Typography, Button, Tooltip, Modal,
+	Card, Col, Row, Typography, Button, Tooltip, Modal, Popconfirm, message,
 } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
 import { getBlocks, deleteBlock, addBlock } from '../../../utils/api';
@@ -51,6 +51,20 @@ function DefineArea() {
 		setVisibleAdd(false);
 		setVisibleEdit(false);
 	  };
+
+	const confirmRemove = (uid) => {
+		deleteBlock(uid).then((res) => {
+			console.log(res);
+			message.success(`Block ${uid} deleted`);
+			setUpdated(!updated);
+		});
+	};
+
+	const cancel = (e) => {
+		console.log(e);
+		// message.error('Click on No');
+	};
+
 	return (
   <div>
     <Title level={3}>Add or Remove Blocks</Title>
@@ -81,14 +95,19 @@ function DefineArea() {
                     }}
                   />
                 </Tooltip>,
-                <Tooltip title="delete">
-                  <DeleteOutlined
-                    key="ellipsis"
-                    onClick={() => {
-                    	deleteBlock(block.uid);
-                    }}
-                  />
-                </Tooltip>,
+                <Popconfirm
+                  title="delete this block?"
+                  onConfirm={() => confirmRemove(block.uid)}
+                  onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Tooltip title="delete">
+                    <DeleteOutlined
+                      key="ellipsis"
+                    />
+                  </Tooltip>
+                </Popconfirm>,
               ]}
             >
               No. of Assets

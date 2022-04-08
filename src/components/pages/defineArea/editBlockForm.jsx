@@ -10,19 +10,19 @@ import {
 	Col,
 	message,
 } from 'antd';
-import { addBlock } from '../../../utils/api';
+import { editBlock } from '../../../utils/api';
 
 const { Content } = Layout;
 
 function EditBlockForm({
-	setConfirmLoading, setVisibleEdit, updateStateVal, updateState,
+	id, setConfirmLoading, setVisibleEdit, updateStateVal, updateState,
 }) {
 	const onFinish = (values) => {
 		setConfirmLoading(true);
 		console.log(values);
-		addBlock(values.blockName).then((res) => {
+		editBlock(id, values.blockName).then((res) => {
 			console.log(res);
-			message.success(`Block Added: ${res.blockName},${res.uid}`);
+			message.success(`Block Updated: ${res.blockName} with id:${res.uid}`);
 			setVisibleEdit(false);
 			setConfirmLoading(false);
 		});

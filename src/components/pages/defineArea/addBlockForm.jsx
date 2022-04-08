@@ -15,15 +15,15 @@ import { addBlock } from '../../../utils/api';
 const { Content } = Layout;
 
 function AddBlockForm({
-	setConfirmLoading, setVisible, updateStateVal, updateState,
+	setConfirmLoading, setVisibleAdd, updateStateVal, updateState,
 }) {
 	const onFinish = (values) => {
 		setConfirmLoading(true);
 		console.log(values);
 		addBlock(values.blockName).then((res) => {
 			console.log(res);
-			message.success(`Block Added: ${res.blockName},${res.uid}`);
-			setVisible(false);
+			message.success(`Block Added: ${res.blockName} with id:${res.uid}`);
+			setVisibleAdd(false);
 			setConfirmLoading(false);
 		});
 		updateState(!updateStateVal);

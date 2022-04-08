@@ -174,3 +174,14 @@ export function addBlock(blockName) {
 			console.log(err);
 		});
 }
+
+export function editBlock(uid, blockName) {
+	return axios.patch(`${apiUrl}area/update/${uid}`, {
+		blockName,
+	})
+		.then((res) => res.data)
+		.catch((err) => {
+			message.error(err.response.data.error);
+			console.log(err);
+		});
+}
