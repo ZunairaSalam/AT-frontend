@@ -21,6 +21,8 @@ function AddBlockForm({
 		setConfirmLoading(true);
 		console.log(values);
 		addBlock(values.blockName).then((res) => {
+			if (!res) return;
+
 			console.log(res);
 			message.success(`Block Added: ${res.blockName} with id:${res.uid}`);
 			setVisibleAdd(false);

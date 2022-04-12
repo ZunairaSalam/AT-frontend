@@ -15,10 +15,12 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getAssets, deleteAssetbyId } from '../utils/api';
 import UpdateAssetForm from './pages/updateAsset/updateAsset';
 
-function AssetTable({ showModalUpdate, setModalTextUpdate, updateStateVal }) {
+function AssetTable({
+	showModalUpdate, setModalTextUpdate, updateStateVal, updateState,
+}) {
 	const [data, setData] = useState();
 	const [assetIdtoUpdate, setAssetIdToUpdate] = useState();
-	const [updated, setUpdated] = useState(updateStateVal);
+	// const [updated, setUpdated] = useState(updateStateVal);
 	const navigate = useNavigate();
 	const confirmDelete = (uid) => {
 		deleteAssetbyId(uid)
@@ -89,7 +91,8 @@ function AssetTable({ showModalUpdate, setModalTextUpdate, updateStateVal }) {
         style={{ color: 'black' }}
         onClick={() => {
   	setAssetIdToUpdate(record.uid);
-				  setModalTextUpdate(<UpdateAssetForm id={record.uid} updateState={setUpdated} />);
+	  // prev used setupdated of this component
+				  setModalTextUpdate(<UpdateAssetForm id={record.uid} updateState={updateState} />);
 				  showModalUpdate();
 				 console.log(record);
         }}
@@ -109,7 +112,7 @@ function AssetTable({ showModalUpdate, setModalTextUpdate, updateStateVal }) {
     )
     	: (
       <Popconfirm
-        title="delete this Sensor?"
+        title="delete this Asset?"
         onConfirm={() => confirmDelete(record.uid)}
         onCancel={cancel}
         okText="Yes"
@@ -136,7 +139,7 @@ function AssetTable({ showModalUpdate, setModalTextUpdate, updateStateVal }) {
 			setData(res);
 			console.log(res);
 		});
-	}, [updated]);
+	}, [updateStateVal]);// prev 'updated' defined in this component
 	return (
 
   <Table

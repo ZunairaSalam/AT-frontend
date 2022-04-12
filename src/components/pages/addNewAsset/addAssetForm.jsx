@@ -41,7 +41,7 @@ function AddAssetForm({
 			setBlocksData(res);
 			console.log(res);
 		});
-	}, []);
+	}, [updateStateVal]);
 
 	return (
   <Layout>
@@ -100,7 +100,7 @@ function AddAssetForm({
 
               <Select>
                 { blocksData?.map((block) => (
-                  <Select.Option key={block.uid} value={block.blockName}>
+                  <Select.Option key={block.uid} value={block.uid}>
                     {block.blockName}
                   </Select.Option>
                 ))}

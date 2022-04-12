@@ -55,8 +55,10 @@ function DefineArea() {
 	const confirmRemove = (uid) => {
 		deleteBlock(uid).then((res) => {
 			console.log(res);
-			message.success(`Block ${uid} deleted`);
-			setUpdated(!updated);
+			if (res === 200) {
+				message.success(`Block ${uid} deleted`);
+				setUpdated(!updated);
+			}
 		});
 	};
 

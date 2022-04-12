@@ -106,7 +106,7 @@ function ActiveSensors() {
 		},
 		{
 			title: 'Asset Placement',
-			render: (record) => (record.asset !== null ? record.asset.location : '-'),
+			render: (record) => (record.asset !== null ? record.asset.area.blockName : '-'),
 			key: 'location',
 		},
 		{
