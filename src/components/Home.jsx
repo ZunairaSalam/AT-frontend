@@ -36,8 +36,6 @@ import DefineArea from './pages/defineArea/defineArea';
 const {
 	Header, Content, Sider, Footer,
 } = Layout;
-//	Content, Footer
-// const { Title } = Typography;
 const { SubMenu } = Menu;
 
 // eslint-disable-next-line react/prop-types
@@ -45,7 +43,6 @@ function Home({ isLoggedin }) {
 	const [collapsed, setCollapsed] = useState(false);
 	const [Loggedin, setLoggedin] = useState(isLoggedin);
 	console.log(Loggedin);
-	//	const [visibleComp, setvisibleComp] = useState('1');
 	const navigate = useNavigate();
 	const onCollapseHandler = (collapsedInput) => {
 		console.log(collapsedInput);
@@ -54,7 +51,6 @@ function Home({ isLoggedin }) {
 
 	const onClickHandler = (e) => {
 		navigate(e.key);
-		// setvisibleComp(e.key);
 	};
 	return (
   <div>
@@ -62,18 +58,13 @@ function Home({ isLoggedin }) {
     	? (
       <Layout>
         <Header className="header">
-          {/* <div className="logo" /> */}
-          {/* <img src={logo} alt="A" className="logo" /> */}
-          {/* <h1 style={{ color: 'white' }}>SSET TRACKING PROJECT</h1> */}
           <span className="logo" />
 
           <h1>
             Asset Tracking Project
           </h1>
           <Menu theme="dark" mode="horizontal">
-            {/* <Menu.Item key="001" icon={<UserAddOutlined />}
-        style={{ marginLeft: 'auto', color: 'white' }}
-        onClick={() => console.log('signup')}>Signup</Menu.Item> */}
+
             <Menu.Item
               key="002"
               icon={<UserOutlined />}
@@ -92,65 +83,35 @@ function Home({ isLoggedin }) {
         </Header>
         <Layout style={{ minHeight: '85vh' }}>
           <Sider theme="dark" className="site-layout-background" collapsible collapsed={collapsed} onCollapse={onCollapseHandler}>
-            <Menu defaultSelectedKeys={['1']} mode="inline">
+            <Menu defaultSelectedKeys={['/dashboard']} mode="inline" inlineIndent={10}>
 
               <Menu.Item key="/dashboard" icon={<ControlOutlined />} onClick={onClickHandler}>
                 Dashboard
               </Menu.Item>
 
-              <SubMenu key="/sub1" icon={<AlertOutlined />} title="Sensors Details" onClick={onClickHandler}>
+              <SubMenu key="/sub1" icon={<AlertOutlined />} title="Sensor Management" onClick={onClickHandler}>
                 <Menu.Item key="/viewSensors" icon={<BarChartOutlined />} onClick={onClickHandler}>
                   View Sensor Data
                 </Menu.Item>
-                {/* <Menu.Item key="/addSensorForm" icon={<PlusCircleOutlined />}
-              onClick={onClickHandler}>
-                Add new Sensor
-              </Menu.Item> */}
                 <Menu.Item key="/activeSensors" icon={<CheckCircleOutlined />} onClick={onClickHandler}>
                   All Sensors
                 </Menu.Item>
-
-                {/* <Menu.Item key="/inactiveSensors" icon={<ExclamationCircleOutlined />}
-              onClick={onClickHandler}>
-                InActive Sensors
-              </Menu.Item> */}
-
                 <Menu.Item key="/attachSensors" icon={<AimOutlined />} onClick={onClickHandler}>
                   Attach Sensors
                 </Menu.Item>
-
-                {/* <Menu.Item key="/detachSensors" icon={<MinusOutlined />}
-                onClick={onClickHandler}>
-                Detach Sensors
-              </Menu.Item> */}
-
               </SubMenu>
 
-              <SubMenu key="/sub2" icon={<DeploymentUnitOutlined />} title="Assets Details" onClick={onClickHandler}>
+              <SubMenu key="/sub2" icon={<DeploymentUnitOutlined />} title="Asset Management" onClick={onClickHandler}>
                 <Menu.Item key="/trackAssets" icon={<MonitorOutlined />} onClick={onClickHandler}>
                   View Assets Data
                 </Menu.Item>
-                {/* <Menu.Item key="/addAssetForm" icon={<PlusCircleOutlined />}
-              onClick={onClickHandler}>
-                Add new Asset
-              </Menu.Item> */}
-
-                {/* <Menu.Item key="/updateAsset" icon={<ExclamationCircleOutlined />}
-              onClick={onClickHandler}>
-                Update Assets
-              </Menu.Item> */}
-
-                {/* <Menu.Item key="/detachSensors" icon={<MinusOutlined />}
-                onClick={onClickHandler}>
-                Detach Sensors
-              </Menu.Item> */}
 
               </SubMenu>
+              <Menu.Item key="/setArea" icon={<AppstoreAddOutlined />} onClick={onClickHandler}>
+                Block Management
+              </Menu.Item>
               <Menu.Item key="/showVectorMap" icon={<EnvironmentOutlined />} onClick={onClickHandler}>
                 Vector Map
-              </Menu.Item>
-              <Menu.Item key="/setArea" icon={<AppstoreAddOutlined />} onClick={onClickHandler}>
-                Set Area
               </Menu.Item>
             </Menu>
           </Sider>
@@ -182,8 +143,6 @@ function Home({ isLoggedin }) {
                 <Route path="/setArea" element={<DefineArea />} />
                 <Route path="/trackAssets" element={<TrackAssets />} />
                 <Route path="/showVectorMap" element={<ShowVectorMap />} />
-                {/* <Route path="/view/edit/:id" element={<EditBle />} />
-      <Route path="/canvas" element={<Canvas />} /> */}
               </Routes>
             </Content>
           </Layout>

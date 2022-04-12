@@ -11,7 +11,9 @@ function App() {
 	return (
 
   <div className="App">
-    {isLoggedin ? <Home isLoggedin /> : <LoginForm setLoginFunc={setIsLoggedin} /> }
+    {isLoggedin
+    	? <Home isLoggedin />
+    	: <LoginForm setLoginFunc={setIsLoggedin} /> }
 
   </div>
 

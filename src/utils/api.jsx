@@ -17,12 +17,13 @@ export function addSensor(id, name, macAddress) {
 			console.log(err);
 		});
 }
-export function addAsset(id, Ctype, loc) {
+export function addAsset(id, Ctype, areaId) {
 	console.log(id, Ctype);
 	return axios.post(`${apiUrl}asset/add`, {
 		type: Ctype,
-		location: loc,
 		sku: id,
+		location: 'port',
+		area: areaId,
 	})
 		.then((res) => res.status)
 		.catch((err) => {
@@ -157,7 +158,7 @@ export function getBlocks() {
 }
 export function deleteBlock(blockId) {
 	return axios.delete(`${apiUrl}area/delete/${blockId}`)
-		.then((res) => res.data)
+		.then((res) => res.status)
 		.catch((err) => {
 			message.error(err.response.data.error);
 			console.log(err);
