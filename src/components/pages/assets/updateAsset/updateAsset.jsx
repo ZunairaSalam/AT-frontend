@@ -13,7 +13,7 @@ import {
 	Alert,
 	message,
 } from 'antd';
-import { updateAsset, getBlocks } from '../../../utils/api';
+import { updateAsset, getBlocks } from '../../../../utils/api';
 
 const { Content } = Layout;
 

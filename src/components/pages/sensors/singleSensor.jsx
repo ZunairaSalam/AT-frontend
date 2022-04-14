@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-import { columns } from '../utils/constants';
+import { columns } from '../../../utils/constants';
 
 // eslint-disable-next-line react/prop-types
 function SingleSensor({ data }) {

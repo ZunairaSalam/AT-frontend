@@ -24,7 +24,8 @@ function SensorDropdown({
 	return (
   <span>
     {checkAsset()}
-    <Menu.Item key={uid}>
+    <Menu.Item key={uid} danger>
+
       <div
         onClick={(e) => {
       	e.preventDefault();
@@ -33,7 +34,7 @@ function SensorDropdown({
         role="button"
         tabIndex="0"
       >
-        <span>
+        <span style={{ color: myColor }}>
           id:
           {uid}
 

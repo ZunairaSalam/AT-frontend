@@ -10,7 +10,7 @@ import {
 	Col,
 	message,
 } from 'antd';
-import { addSensor } from '../../../utils/api';
+import { addSensor } from '../../../../utils/api';
 
 const { Content } = Layout;
 

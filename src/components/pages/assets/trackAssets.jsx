@@ -4,9 +4,9 @@ import {
 	Typography, Row, Modal, Col, Button,
 } from 'antd';
 import AssetTable from './assetTable';
-import AddAssetForm from './pages/addNewAsset/addAssetForm';
-import UpdateAssetForm from './pages/updateAsset/updateAsset';
-import './table.css';
+import AddAssetForm from './addNewAsset/addAssetForm';
+import UpdateAssetForm from './updateAsset/updateAsset';
+import '../../table.css';
 
 const { Title, Text } = Typography;
 

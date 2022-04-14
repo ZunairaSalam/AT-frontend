@@ -7,10 +7,10 @@ import {
 	Row, Col, Button, Typography, Table, message,
 } from 'antd';
 import { PlusSquareTwoTone } from '@ant-design/icons';
-import { attachSensorColumns, attachAssetColumns } from '../../../utils/constants';
-import { getSensors, getAssets, attachSensortoAsset } from '../../../utils/api';
+import { attachSensorColumns, attachAssetColumns } from '../../../../utils/constants';
+import { getSensors, getAssets, attachSensortoAsset } from '../../../../utils/api';
 
-import '../../table.css';
+import '../../../table.css';
 
 const { Title } = Typography;
 function AssignSensors() {

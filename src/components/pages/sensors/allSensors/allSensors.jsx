@@ -13,9 +13,9 @@ import {
 import { StopOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import {
 	getSensors, deAttachSensortoAsset, deleteSensorbyId,
-} from '../../../utils/api';
+} from '../../../../utils/api';
 // import { activeColumns } from '../utils/constants';
-import '../../table.css';
+import '../../../table.css';
 import './allSensors.css';
 import AddSensorForm from '../addNewSensor/addSensorForm';
 

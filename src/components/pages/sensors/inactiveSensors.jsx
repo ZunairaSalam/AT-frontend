@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {
 	Table, Layout, Typography, Row, Col,
 } from 'antd';
-import { getSensors } from '../utils/api';
-import { inActiveColumns } from '../utils/constants';
-import './table.css';
+import { getSensors } from '../../../utils/api';
+import { inActiveColumns } from '../../../utils/constants';
+import '../../table.css';
 
 const { Title } = Typography;
 const {

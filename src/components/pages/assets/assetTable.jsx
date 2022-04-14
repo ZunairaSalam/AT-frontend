@@ -12,8 +12,8 @@ import {
 } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 // import { assetColumns } from '../utils/constants';
-import { getAssets, deleteAssetbyId } from '../utils/api';
-import UpdateAssetForm from './pages/updateAsset/updateAsset';
+import { getAssets, deleteAssetbyId } from '../../../utils/api';
+import UpdateAssetForm from './updateAsset/updateAsset';
 
 function AssetTable({
 	showModalUpdate, setModalTextUpdate, updateStateVal, updateState,

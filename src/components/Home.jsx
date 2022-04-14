@@ -21,17 +21,17 @@ import {
 	DeploymentUnitOutlined,
 } from '@ant-design/icons';
 import './Home.css';
-import ActiveSensors from './pages/allSensors/allSensors';
-import InactiveSensors from './inactiveSensors';
-import AssignSensors from './pages/attachSensors/assignSensors';
-import ViewSensor from './pages/viewSensorData/viewSensor';
-import TrackAssets from './trackAssets';
+import ActiveSensors from './pages/sensors/allSensors/allSensors';
+import InactiveSensors from './pages/sensors/inactiveSensors';
+import AssignSensors from './pages/sensors/attachSensors/assignSensors';
+import ViewSensor from './pages/sensors/viewSensorData/viewSensor';
+import TrackAssets from './pages/assets/trackAssets';
 import ShowVectorMap from './pages/vectorMap/showVectorMap';
 import Dashboard from './pages/dashboard/dashboard';
 import LoginForm from './pages/login/loginForm';
-import AddSensorForm from './pages/addNewSensor/addSensorForm';
-import AddAssetForm from './pages/addNewAsset/addAssetForm';
-import DefineArea from './pages/defineArea/defineArea';
+import AddSensorForm from './pages/sensors/addNewSensor/addSensorForm';
+import AddAssetForm from './pages/assets/addNewAsset/addAssetForm';
+import DefineArea from './pages/area/defineArea';
 
 const {
 	Header, Content, Sider, Footer,

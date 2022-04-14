@@ -9,9 +9,9 @@ import moment from 'moment';
 import { DownOutlined } from '@ant-design/icons';
 import {
 	getSensors, getSensorById,
-} from '../../../utils/api';
+} from '../../../../utils/api';
 import SensorDropdown from './sensorDropdown';
-import SingleSensor from '../../singleSensor';
+import SingleSensor from '../singleSensor';
 
 // import TimeDropdown from './timeDropdown';
 
