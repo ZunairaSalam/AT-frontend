@@ -66,7 +66,7 @@ function ViewSensor() {
         key={elm.uid}
         uid={elm.uid}
         sname={elm.name}
-        asset={elm.asset}
+        active={elm.active}
         func={handleSensorSelect}
       />
     	))}

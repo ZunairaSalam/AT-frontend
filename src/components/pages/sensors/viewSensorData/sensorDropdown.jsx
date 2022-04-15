@@ -6,25 +6,25 @@ import {
 
 function SensorDropdown({
 	// eslint-disable-next-line react/prop-types
-	uid, sname, asset, func,
+	uid, sname, active, func,
 }) {
 	const onClickHandler = (id, name) => {
 		console.log(name);
 		func(id, name);
 	};
-	let myColor = 'green';
-	let status = 'Active';
-	const checkAsset = () => {
-		if (!asset) {
-			myColor = 'red';
-			status = 'InActive';
-		}
-	};
+	// let myColor = 'green';
+	// let status = 'Active';
+	// const checkAsset = () => {
+	// 	if (!asset) {
+	// 		myColor = 'red';
+	// 		status = 'InActive';
+	// 	}
+	// };
 
 	return (
   <span>
-    {checkAsset()}
-    <Menu.Item key={uid} danger>
+    {/* {checkAsset()} */}
+    <Menu.Item key={uid} danger={!active}>
 
       <div
         onClick={(e) => {
@@ -34,15 +34,12 @@ function SensorDropdown({
         role="button"
         tabIndex="0"
       >
-        <span style={{ color: myColor }}>
-          id:
-          {uid}
-
-        </span>
-        {', '}
+        id:
+        {uid}
+        {'  '}
         {sname}
-        {', '}
-        <span style={{ color: myColor }}>{status}</span>
+        {'  ('}
+        {active ? 'Active)' : 'Inactive)'}
       </div>
     </Menu.Item>
     <Menu.Divider />
