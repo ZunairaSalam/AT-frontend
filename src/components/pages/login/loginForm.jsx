@@ -2,44 +2,45 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+
 import {
 	Form, Input, Button, Checkbox, Row, Col,
-	// Layout,
 	Spin,
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { sendLoginRequest } from '../../../utils/api';
+import { sendLoginRequest, sendSignupRequest } from '../../../utils/api';
 import './login.css';
 
-// const { Content } = Layout;
 // eslint-disable-next-line react/prop-types
-function LoginForm({ setLoginFunc }) {
+function LoginForm({ setLoginFunc, signupFlag, setSignupFlag }) {
 	const [loading, setLoading] = useState(false);
+	//	const [isSignedIn, setIsSignedIn] = useState(false);
+
 	// const [signupFlag, setSignupFlag] = useState(false);
-	// const onRegister = () => {
-	// 	sessionStorage.setItem('signup-flag', true);
-	// 	setSignupFlag(true);
-	// };
+	const onRegister = () => {
+		debugger;
+		sessionStorage.setItem('signup-flag', true);
+		setSignupFlag(true);
+	};
 	const onFinish = (values) => {
 		// setAccessTokenfromApi(sendLoginRequest(values.username, values.password));
 		console.log('in finish');
 		setLoading(true);
-		// if (signupFlag === true) {
-		// 	sendSignupRequest(values.username, values.password).then((res) => {
-		// 		axios.defaults.headers.common.Authorization = `Bearer ${res}`;
-		// 		setLoginFunc(true);
-		// 		sessionStorage.setItem('auth-token', res);
-		// 		sessionStorage.setItem('login-flag', true);
-		// 	});
-		// } else {
-		sendLoginRequest(values.username, values.password).then((res) => {
-			axios.defaults.headers.common.Authorization = `Bearer ${res}`;
-			setLoginFunc(true);
-			sessionStorage.setItem('auth-token', res);
-			sessionStorage.setItem('login-flag', true);
-		});
-		// }
+		if (signupFlag === true) {
+			sendSignupRequest(values.username, values.password).then((res) => {
+				axios.defaults.headers.common.Authorization = `Bearer ${res}`;
+				setLoginFunc(true);
+				sessionStorage.setItem('auth-token', res);
+				sessionStorage.setItem('login-flag', true);
+			});
+		} else {
+			sendLoginRequest(values.username, values.password).then((res) => {
+				axios.defaults.headers.common.Authorization = `Bearer ${res}`;
+				setLoginFunc(true);
+				sessionStorage.setItem('auth-token', res);
+				sessionStorage.setItem('login-flag', true);
+			});
+		}
 	};
 	return (
 	// <Layout>
@@ -94,12 +95,15 @@ function LoginForm({ setLoginFunc }) {
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" className="login-form-button">
-                Login
+                {signupFlag ? 'Signup' : 'Login' }
               </Button>
               <br />
-              {/* Or
-              {' '}
-              <a href="" onClick={() => { onRegister(); }}>register now!</a> */}
+              {!signupFlag && (
+                <span>
+                  {' Or '}
+                  <a href="" onClick={() => { onRegister(); }}>signup now!</a>
+                </span>
+              )}
             </Form.Item>
           </span>
           	{/* // )

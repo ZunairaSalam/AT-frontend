@@ -79,6 +79,7 @@ export function sendLoginRequest(emailParam, passwordParam) {
 		email: emailParam,
 		password: passwordParam,
 	}).then((res) => {
+		console.log(res);
 		localStorage.setItem('access_token', res.data.access_token);
 		return res.data.access_token;
 	})
