@@ -52,6 +52,7 @@ function TrackAssets() {
       setModalTextUpdate={setModalTextUpdate}
       updateStateVal={updated}
       updateState={setUpdated}
+      setVisibleUpdate={setVisibleUpdate}
     />
     <Row justify="center">
       <Modal

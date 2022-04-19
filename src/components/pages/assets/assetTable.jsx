@@ -16,7 +16,7 @@ import { getAssets, deleteAssetbyId } from '../../../utils/api';
 import UpdateAssetForm from './updateAsset/updateAsset';
 
 function AssetTable({
-	showModalUpdate, setModalTextUpdate, updateStateVal, updateState,
+	showModalUpdate, setModalTextUpdate, updateStateVal, updateState, setVisibleUpdate,
 }) {
 	const [data, setData] = useState();
 	const [assetIdtoUpdate, setAssetIdToUpdate] = useState();
@@ -92,7 +92,11 @@ function AssetTable({
         onClick={() => {
   	setAssetIdToUpdate(record.uid);
 	  // prev used setupdated of this component
-				  setModalTextUpdate(<UpdateAssetForm id={record.uid} updateState={updateState} />);
+				  setModalTextUpdate(<UpdateAssetForm
+  id={record.uid}
+  updateState={updateState}
+  setVisibleUpdate={setVisibleUpdate}
+				  />);
 				  showModalUpdate();
 				 console.log(record);
         }}

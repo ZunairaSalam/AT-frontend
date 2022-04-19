@@ -17,18 +17,19 @@ import { updateAsset, getBlocks } from '../../../../utils/api';
 
 const { Content } = Layout;
 
-function UpdateAssetForm({ id, updateState }) {
+function UpdateAssetForm({ id, updateState, setVisibleUpdate }) {
 	const [showAlert, setShowAlert] = useState(false);
 	const [assetId, setAssetId] = useState(id);
 	const [blocksData, setBlocksData] = useState();
 
 	const onFinish = (values) => {
-		console.log(values.sku, values.type, values.placement);
 		updateAsset(id, values.type, values.placement)
 			.then((res) => {
-				if (res === 200) updateState(true);
-				else console.log(res);
-				message.success(`Asset with id: ${id} updated!`);
+				if (res === 200) {
+					updateState(true);
+					message.success(`Asset with id: ${id} updated!`);
+					setVisibleUpdate(false);
+				} else console.log(res);
 			});
 	};
 	useEffect(() => {
